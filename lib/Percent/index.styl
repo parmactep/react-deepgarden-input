@@ -1,0 +1,22 @@
+@require 'deepgarden'
+
+@require 'react-deepgarden-input/lib/input'
+
+._PercentInput
+	input()
+
+	&__Input
+		display: flex
+		height: 100%
+		align-items: center
+
+	input
+		resetInput()
+		display: block
+		width: 100%
+		height: 100%
+		padding: 0 10px
+
+	&__Ico
+		margin-right: 5px
+		color: $palette.descent.color

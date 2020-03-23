@@ -1,0 +1,17 @@
+@require 'deepgarden'
+@require '../input.styl'
+
+._TextareaInput
+	input()
+	height: 100%
+
+	textarea
+		resetInput()
+		display: block
+		width: 100%
+		height: 100%
+		padding: 10px
+		resize: none
+
+		&:disabled
+			background: $palette.disabled.background

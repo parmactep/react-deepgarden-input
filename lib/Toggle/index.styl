@@ -1,0 +1,41 @@
+._ToggleInput
+
+	&__Input
+		display: block
+		width: 2.4em
+		background: $palette.danger.color
+		padding: 3px
+		padding-right: 1em
+		border-radius: 1em
+		transition: padding .5s, background .5s
+		cursor: pointer
+
+		&::before
+			content: ' '
+			display: block
+			width: 1em
+			height: 1em
+			border-radius: 1em
+			background: #FFF
+
+		&--True
+			background: $palette.success.color
+			padding: .25em
+			padding-left: 1.15em
+
+	input
+		display: none
+
+	/* Size */
+
+	&--Bigger
+		font-size: 1.1rem
+
+	&--Biggest
+		font-size: 1.3rem
+
+	&--Smaller
+		font-size: 0.9rem
+
+	&--Smallest
+		font-size: 0.8rem

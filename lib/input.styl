@@ -1,0 +1,34 @@
+@require 'deepgarden'
+
+input()
+	color: $palette.base
+	background: #FFF
+	border: 1px solid $palette.border
+	border-radius: $borderRadius
+	height: 2.25em
+
+	&._Input--isFocused
+		box-shadow: 0 0 5px $palette.accent.border
+
+._Input
+	display: inline-block
+	vertical-align: middle
+
+	&--Block
+		width: 100%
+
+	.-Bigger &
+	&.-Bigger
+		font-size: 1.1em
+
+	.-Biggest &
+	&.-Biggest
+		font-size: 1.3em
+
+	.-Smaller &
+	&.-Smaller
+		font-size: 0.9em
+
+	.-Smallest &
+	&.-Smallest
+		font-size: 0.8em

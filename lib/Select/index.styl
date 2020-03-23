@@ -1,0 +1,28 @@
+@require 'deepgarden'
+@require '../input.styl'
+
+._SelectInput
+	input()
+	line-height: 1
+
+	select
+		resetInput()
+		font-size: 1rem
+		vertical-align: middle
+		width: 100%
+		height: 100%
+
+		&:disabled
+			background: $palette.disabled.background
+
+	&--Bigger
+		font-size: 1.1em
+
+	&--Biggest
+		font-size: 1.3em
+
+	&--Smaller
+		font-size: 0.9em
+
+	&--Smallest
+		font-size: 0.8em

@@ -1,0 +1,40 @@
+@require 'deepgarden'
+@require '../input.styl'
+
+._CheckboxInput
+	input()
+	border: none
+	border-radius: 3px
+
+	&__Input
+		width: 100%
+		height: 100%
+		border: 1px solid $palette.border
+		padding: .2em
+
+		&--Checked
+			background: $palette.notice.color
+			color: #FFF
+			border: 1px solid $palette.notice.border
+
+	svg
+		display: block
+		width: 100%
+		height: 100%
+
+	input
+		display: none
+
+	&.-isChecked
+
+		&::before
+			content: ' '
+			display: block
+			width: 50%
+			height: 100%
+			border: 2px solid #FFF
+			border-top: 0
+			border-left: 0
+			margin: 0 auto
+			box-sizing: border-box
+			transform: rotate(35deg)

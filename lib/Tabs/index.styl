@@ -1,0 +1,29 @@
+@require 'deepgarden'
+@require '../input.styl'
+
+._TabsInput
+	position: relative
+
+	&__Input
+		input()
+		display: inline-flex
+		line-height: 2.25em
+		border: none
+
+	&__Option
+		padding: 0 10px
+		cursor: pointer
+		border: 1px solid $palette.border
+		margin-left: -1px
+
+		&:first-child
+			border-radius: $borderRadius 0 0 $borderRadius
+
+		&:last-child
+			border-radius: 0 $borderRadius $borderRadius 0
+
+		&--isActive
+			position: relative
+			border: 1px solid $palette.accent.border
+			color: $palette.accent.color
+

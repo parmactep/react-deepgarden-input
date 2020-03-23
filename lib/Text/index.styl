@@ -1,0 +1,25 @@
+@require 'deepgarden'
+@require '../input.styl'
+
+._TextInput
+	input()
+
+	input
+		resetInput()
+		display: block
+		width: 100%
+		height: 100%
+		padding: 0 10px
+
+		&:disabled
+			background: $palette.disabled.background
+
+	&__Wrapper
+		display: flex
+		align-items: center
+		height: 100%
+
+	&__Postfix
+		display: inline-block
+		color: $palette.descent.color
+		padding-right: 10px
