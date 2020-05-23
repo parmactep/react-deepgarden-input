@@ -1,0 +1,25 @@
+@require 'deepgarden'
+@require '../input.styl'
+
+._PasswordInput
+    input()
+
+    &__Input
+        height: 100%
+
+        &--Eye
+            position: relative
+            float: right
+            bottom: 20px
+            right: 15px
+
+	input
+		resetInput()
+		display: block
+		width: 100%
+		height: 100%
+		padding: 0 10px
+
+		&:disabled
+			background: $palette.disabled.background
+
