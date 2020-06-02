@@ -12,7 +12,7 @@ class NumberInput extends React.Component {
 		value: '',
 	}
 	handleChange = (e) => {
-		this.props.onChange(+e.target.value);
+		+e.target.value <= this.props.max && this.props.onChange(+e.target.value);
 	}
 	render() {
 		return <input {...this.props} min="0" onChange={this.handleChange} value={this.props.value} />;
