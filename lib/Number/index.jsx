@@ -31,7 +31,8 @@ class NumberInput extends React.Component {
                     </div>
                 )}
             </div>
-        );	}
+        );
+    }
 }
 
 import './index.styl';
