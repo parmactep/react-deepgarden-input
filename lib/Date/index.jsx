@@ -15,7 +15,7 @@ class DateInput extends React.Component {
 		calendarType: 'ISO 8601',
 		locale: 'en-US',
 		options: {
-			timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+			timeZone: 'UTC',
 			dateStyle: 'short',
 		},
 	};
@@ -40,19 +40,11 @@ class DateInput extends React.Component {
 		});
 	};
 	render() {
-		const date = this.props.value ? new Date(this.props.value) : new Date(); console.log('DATE', date);
-		const utcDate = (
-			new Date(
-				date.getFullYear(),
-				date.getMonth(),
-				date.getDate(),
-				date.getHours() + date.getTimezoneOffset() / 60,
-			)
-		);
+		const date = this.props.value ? new Date(this.props.value) : new Date();
 		return (
 			<>
 				<Text
-					value={this.props.value ? utcDate.toLocaleDateString() : ''}
+					value={this.props.value ? date.toLocaleDateString() : ''}
 					onChange={this.handleInputChange}
 					onClick={this.showCalendar}
 					disabled={this.props.disabled}
@@ -64,7 +56,7 @@ class DateInput extends React.Component {
 							maxDate={this.props.maxDate}
 							minDate={this.props.minDate}
 							calendarType={this.props.calendarType}
-							value={utcDate}
+							value={date}
 							onChange={this.handleCalendarChange}
 						/>
 					</DropDown>
