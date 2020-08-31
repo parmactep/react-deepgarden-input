@@ -13,7 +13,7 @@ export default
 class DateInput extends React.Component {
 	static defaultProps = {
 		calendarType: 'ISO 8601',
-		locale: 'en-US',
+		locales: [],
 		options: {
 			timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 			timeStyle: 'short',
@@ -27,7 +27,7 @@ class DateInput extends React.Component {
 	};
 	handleCalendarChange = (date) => {
 		!date.getHours() && date.setHours(Math.abs(date.getTimezoneOffset() / 60));
-		this.props.onChange(date.toLocaleDateString(this.props.locale, this.props.options));
+		this.props.onChange(date.toLocaleDateString(this.props.locales, this.props.options));
 		this.hideCalendar();
 	};
 	showCalendar = () => {
