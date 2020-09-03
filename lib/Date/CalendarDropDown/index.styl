@@ -1,0 +1,53 @@
+._Calendar__DropDown
+
+	._DropDown
+		position: absolute
+	
+	.react-calendar
+		padding: 20px
+
+		&__navigation
+			margin-bottom: 10px
+
+			&__arrow
+				background: transparent
+				border: none
+				font-size: 1.6em
+
+			&__label
+				background: transparent
+				border: none
+				font-size: 1.2em
+				text-transform: uppercase
+
+		&__month-view
+
+			&__weekdays
+
+				&__weekday
+					font-weight: bold
+					text-align: center
+
+					abbr
+						display: inline-block
+						padding: 10px
+						border-bottom: none
+
+		&__tile
+			background: transparent
+			border: none
+			width: auto
+
+			abbr
+				display: inline-block
+				padding: 5px
+				line-height: 1em
+				width: 1em
+				height: 1em
+				border-radius: 50%
+
+			&--active
+
+				abbr
+					background: $palette.accent.background
+					color: #FFF
