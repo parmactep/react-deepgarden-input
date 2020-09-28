@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
-export default function input(inputClassName) {
+export default function input(inputClassName, Tag = 'label') {
 	return (Component) => React.forwardRef(({
 		className,
 		onBlur,
@@ -10,7 +10,7 @@ export default function input(inputClassName) {
 	}, ref) => {
 		const [isFocused, setFocused] = useState(false);
 		return (
-			<label className={classNames(
+			<Tag className={classNames(
 				className,
 				inputClassName,
 				{ '_Input--isFocused': isFocused },
@@ -28,7 +28,7 @@ export default function input(inputClassName) {
 						onBlur && onBlur(e);
 					}}
 				/>
-			</label>
+			</Tag>
 		);
 	});
 }

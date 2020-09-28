@@ -7,7 +7,7 @@ import input from '../input';
 
 export default
 @withClassName('_Input')
-@input('_FileInput')
+@input('_FileInput', 'div')
 class File extends React.Component {
 	static defaultProps = {
 		value: '',
@@ -61,8 +61,8 @@ class File extends React.Component {
 				<div className="_FileInput__Image">
 					<Button onClick={this.handleOpenInput}>Choose Files to Upload</Button>
 					{this.props.withSampleFile}
-					<input type="file" ref={(node) => this._input = node} onChange={this.handleChange} className="_FileInput__Input" />
 				</div>
+				<input type="file" ref={(node) => this._input = node} onChange={this.handleChange} className="_FileInput__Input" />
 			</>
 		);
 	}
