@@ -7,7 +7,6 @@ import input from '../input';
 
 export default
 @withClassName('_Input')
-@input('_FileInput')
 class File extends React.Component {
 	static defaultProps = {
 		value: '',
