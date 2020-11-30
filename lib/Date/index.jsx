@@ -9,7 +9,7 @@ import input from '../input';
 
 export default
 @withClassName('_Input')
-@input('_DateInput')
+@input('_DateInput', 'div')
 class DateInput extends React.Component {
 	static defaultProps = {
 		calendarType: 'ISO 8601',
