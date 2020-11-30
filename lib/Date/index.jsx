@@ -1,7 +1,7 @@
 import React from 'react';
 import Calendar from 'react-calendar/dist/entry.nostyle';
 
-import { withClassName, DropDown } from 'react-deepgarden';
+import { withClassName, DropDown, OutsideClick } from 'react-deepgarden';
 
 import Text from '../Text';
 
@@ -43,15 +43,19 @@ class DateInput extends React.Component {
 				/>
 				{this.state.isShowCalendar
 				&& (
-					<DropDown direction="top" onClose={this.toggleCalendar} marginTop={-20} marginLeft={100}>
-						<Calendar
-							maxDate={this.props.maxDate}
-							minDate={this.props.minDate}
-							calendarType={this.props.calendarType}
-							value={date}
-							onChange={this.handleCalendarChange}
-						/>
-					</DropDown>
+					<OutsideClick
+						onClickOutside={this.toggleCalendar}
+					>
+						<div className="_DateInput__DropDown">
+							<Calendar
+								maxDate={this.props.maxDate}
+								minDate={this.props.minDate}
+								calendarType={this.props.calendarType}
+								value={date}
+								onChange={this.handleCalendarChange}
+							/>
+						</div>
+					</OutsideClick>
 				)}
 			</>
 		);
