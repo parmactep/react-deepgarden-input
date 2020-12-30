@@ -77,9 +77,9 @@ class Form extends React.Component {
 	submit = () => {
 		this.handleSubmit();
 	};
-	reset = () => {
+	reset = (values = {}) => {
 		this.setState({
-			values: this.props.initialValues,
+			values: {...this.props.initialValues, ...values},
 			errors: this.props.errors,
 		});
 	};
