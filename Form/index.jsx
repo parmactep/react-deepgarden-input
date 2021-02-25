@@ -86,7 +86,7 @@ class Form extends React.Component {
 	handleSubmit = (e) => {
 		e && e.preventDefault();
 		this.validate()
-			.catch((errors) => { console.log('NO VALID FORM', errors); })
+			.catch((errors) => { throw errors; })
 			.then(() => this.props.onSubmit(this.state.values));
 	};
 	isArray(value) {
