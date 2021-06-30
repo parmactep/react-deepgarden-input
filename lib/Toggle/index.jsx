@@ -19,7 +19,7 @@ class ToggleInput extends React.Component {
 		const value = !!+this.props.value;
 		return (
 			<label
-				className={classNames('_ToggleInput__Input', {'_ToggleInput__Input--True' : value})}
+				className={classNames('_ToggleInput__Input', {'_ToggleInput__Input--True' : value}, {'_ToggleInput__Input--isDisabled' : this.props.disabled})}
 			>
 				<input
 					{...this.props}
