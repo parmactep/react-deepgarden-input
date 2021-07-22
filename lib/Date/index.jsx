@@ -1,5 +1,6 @@
 import React from 'react';
 import Calendar from 'react-calendar/dist/entry.nostyle';
+import moment from 'moment';
 
 import { withClassName, DropDown, OutsideClick } from 'react-deepgarden';
 
@@ -33,7 +34,9 @@ class DateInput extends React.Component {
 		});
 	}
 	render() {
-		const date = this.props.value ? new Date(this.props.value) : new Date();
+		const date = this.props.value
+			? new Date(`${this.props.value}T00:00:00`)
+			: new Date();
 		return (
 			<>
 				<Text
