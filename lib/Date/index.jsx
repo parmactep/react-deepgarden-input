@@ -34,9 +34,10 @@ class DateInput extends React.Component {
 		});
 	}
 	render() {
+
 		const date = this.props.value
-			? new Date(`${this.props.value}T00:00:00`)
-			: new Date();
+			? moment(this.props.value).toDate()
+			: moment().startOf('day').toDate();
 		return (
 			<>
 				<Text
