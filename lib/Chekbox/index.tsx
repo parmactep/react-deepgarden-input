@@ -5,14 +5,17 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-export default
-@withClassName('_Input')
-@input('_CheckboxInput')
-class CheckboxInput extends React.Component {
+interface ICheckboxInputProps{
+	onChange: (e: boolean )=>void;
+	disabled: boolean;
+	value: boolean;
+}
+
+class CheckboxInput extends React.Component <ICheckboxInputProps>{
 	static defaultProps = {
 		value: false,
 	};
-	handleChange = (e) => {
+	handleChange = (e: any ) => {
 		this.props.onChange(e.target.checked);
 	};
 	render() {
@@ -31,3 +34,5 @@ class CheckboxInput extends React.Component {
 }
 
 import './index.styl';
+
+export default withClassName('_Input')(input('_CheckboxInput')(CheckboxInput));

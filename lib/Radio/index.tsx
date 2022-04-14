@@ -4,15 +4,18 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-export default
-@withClassName('_Input')
-@input('_RadioInput')
-class RadioInput extends React.Component {
+interface IRadioInputProps{
+    onChange?:(values: boolean )=>void;
+	value?: any;
+
+}
+
+class RadioInput extends React.Component <IRadioInputProps> {
 	static defaultProps = {
 		value: false,
 	};
-	handleChange = (e) => {
-		!!this.props.onChange && this.props.onChange(e.target.checked, e);
+	handleChange = (e: any) => {
+		!!this.props.onChange && this.props.onChange(e.target.checked);
 	};
 	render() {
 		return (
@@ -24,3 +27,5 @@ class RadioInput extends React.Component {
 }
 
 import './index.styl';
+
+export default withClassName('_Input')(input('_RadioInput')(RadioInput));

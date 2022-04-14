@@ -5,14 +5,17 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-export default
-@withClassName('_Input')
-@input ('_ToggleInput')
-class ToggleInput extends React.Component {
+interface IToggleInputProps{
+    onChange?:(values: boolean )=>void;
+	value?: any;
+	disabled?: boolean;
+}
+
+class ToggleInput extends React.Component <IToggleInputProps>{
 	static defaultProps = {
 		value: false,
 	};
-	handleChange = (e) => {
+	handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
 		this.props.onChange(e.target.checked);
 	};
 	render() {
@@ -33,3 +36,5 @@ class ToggleInput extends React.Component {
 }
 
 import './index.styl';
+
+export default withClassName('_Input')(input('_ToggleInput')(ToggleInput));

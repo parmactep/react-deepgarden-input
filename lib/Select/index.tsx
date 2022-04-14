@@ -4,19 +4,29 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-export default
-@withClassName('_Input')
-@input('_SelectInput')
-class Select extends React.Component {
-	static defaultProps = {
+interface Ioptions{
+	label?: string;
+	value?: string;
+}
+
+interface ISelectProps{
+    onChange?:(values: string|undefined )=>void;
+	value?: any;
+	options?:Ioptions[] | undefined;
+	placeholder?: string
+
+}
+
+class Select extends React.Component <ISelectProps> {
+	static defaultProps: ISelectProps = {
 		options: [],
 	};
-	handleChange = (e) => {
+	handleChange = (e: any) => {
 		this.props.onChange(this.props.options[e.target.value]
 			? this.props.options[e.target.value].value
 			: undefined); // Pick option by key to save value type
 	};
-	renderOption = (option, key) => {
+	renderOption = (option:Ioptions, key: React.Key) => {
 		return <option key={key} value={key}>{option.label}</option>
 	};
 	render() {
@@ -37,3 +47,5 @@ class Select extends React.Component {
 }
 
 import './index.styl';
+
+export default withClassName('_Input')(input('_SelectInput')(Select));

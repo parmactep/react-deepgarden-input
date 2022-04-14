@@ -8,10 +8,23 @@ import Text from '../Text';
 
 import input from '../input';
 
-export default
-@withClassName('_Input')
-@input('_DateInput', 'div')
-class DateInput extends React.Component {
+interface IDateInputProps{
+	onChange: (date: string)=>void;
+	calendarType?: any;
+	locale?: string;
+	options?: {
+		timeZone?: string;
+		dateStyle?: string;
+	};
+	value: any;
+	disabled: boolean;
+	maxDate?: Date
+	minDate?: Date
+	
+
+}
+
+class DateInput extends React.Component<IDateInputProps> {
 	static defaultProps = {
 		calendarType: 'ISO 8601',
 		locale: 'en-US',
@@ -23,7 +36,7 @@ class DateInput extends React.Component {
 	state = {
 		isShowCalendar: false,
 	};
-	handleCalendarChange = (date) => {
+	handleCalendarChange = (date: Date) => {
 		!date.getHours() && date.setHours(Math.abs(date.getTimezoneOffset() / 60));
 		this.props.onChange(date.toLocaleDateString(this.props.locale, this.props.options));
 		this.toggleCalendar();
@@ -43,8 +56,9 @@ class DateInput extends React.Component {
 				<Text
 					value={this.props.value ? date.toLocaleDateString() : ''}
 					onClick={this.toggleCalendar}
-					disabled={this.props.disabled}
-				/>
+					disabled={this.props.disabled} 
+					_type={undefined} 
+					_size={undefined}				/>
 				{this.state.isShowCalendar
 				&& (
 					<OutsideClick
@@ -67,3 +81,5 @@ class DateInput extends React.Component {
 }
 
 import './index.styl';
+
+export default withClassName('_Input')(input('_DateInput', 'div')(DateInput));

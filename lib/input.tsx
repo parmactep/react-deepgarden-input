@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
-export default function input(inputClassName, Tag = 'label') {
-	return (Component) => React.forwardRef(({
+interface IinputComponentProps {
+	[x: string]: any;
+    className: string;
+	onBlur: (e: React.SyntheticEvent) => void;
+	onFocus: (e: React.FocusEvent) => void;
+}
+
+export default function input(inputClassName: any, Tag: any = 'label') {
+	return (Component: any) => React.forwardRef(({
 		className,
 		onBlur,
 		onFocus,
 		...props
-	}, ref) => {
+	}:IinputComponentProps, ref) => {
 		const [isFocused, setFocused] = useState(false);
 		return (
 			<Tag className={classNames(
@@ -19,11 +26,11 @@ export default function input(inputClassName, Tag = 'label') {
 				<Component
 					{...props}
 					ref={ref}
-					onFocus={(e) => {
+					onFocus={(e: any) => {
 						setFocused(true);
 						onFocus && onFocus(e);
 					}}
-					onBlur={(e) => {
+					onBlur={(e: any) => {
 						setFocused(false);
 						onBlur && onBlur(e);
 					}}
