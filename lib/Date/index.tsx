@@ -9,7 +9,7 @@ import Text from '../Text';
 import input from '../input';
 
 interface IDateInputProps{
-	onChange: (date: string)=>void;
+	onChange: (date: string) => void;
 	calendarType?: any;
 	locale?: string;
 	options?: {
@@ -18,10 +18,8 @@ interface IDateInputProps{
 	};
 	value: any;
 	disabled: boolean;
-	maxDate?: Date
-	minDate?: Date
-	
-
+	maxDate?: Date;
+	minDate?: Date;
 }
 
 class DateInput extends React.Component<IDateInputProps> {

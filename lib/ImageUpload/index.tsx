@@ -5,8 +5,8 @@ import { withClassName } from 'react-deepgarden';
 import input from '../input';
 
 interface IImageUploadProps{
-	onChange?:(file: string )=>void;
-	onUpload?:(file: globalThis.File)=>any;
+	onChange?:(file: string) => void;
+	onUpload?:(file: globalThis.File) => any;
 	placeholder?: string;
 	value?: string;
 	className?: string;
@@ -20,14 +20,14 @@ class ImageUpload extends React.Component<IImageUploadProps> {
 	state = {
 		pending: false,
 	};
-	handleImageSelect = async (e:React.ChangeEvent<HTMLInputElement>) => { // @TODO: Handle errors
+	handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => { // @TODO: Handle errors
 		const file = e.target.files[0];
 		if (!!this.props.onUpload) { // @TODO: implement default upload function
 			const value = await this.props.onUpload(file);
 			return this.props.onChange(value);
 		}
 	};
-	handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		this.props.onChange(e.target.value);
 	};
 	render() {

@@ -5,7 +5,7 @@ import { withClassName } from 'react-deepgarden';
 import input from '../input';
 
 interface ITextInputProps{
-    onChange?:(values: string )=>void;
+	onChange?: (values: string) => void;
 	value?: string;
 	postfix?: string
 }
@@ -15,7 +15,7 @@ class TextInput extends React.Component<ITextInputProps> {
 		value: '',
 		autoCapitalize: 'none',
 	};
-	handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		this.props.onChange(e.target.value);
 	};
 	render() {

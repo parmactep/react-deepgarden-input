@@ -6,16 +6,16 @@ import { withClassName } from 'react-deepgarden';
 import input from '../input';
 
 interface ICheckboxInputProps{
-	onChange: (e: boolean )=>void;
+	onChange: (e: boolean) => void;
 	disabled: boolean;
 	value: boolean;
 }
 
-class CheckboxInput extends React.Component <ICheckboxInputProps>{
+class CheckboxInput extends React.Component<ICheckboxInputProps> {
 	static defaultProps = {
 		value: false,
 	};
-	handleChange = (e: any ) => {
+	handleChange = (e: any) => {
 		this.props.onChange(e.target.checked);
 	};
 	render() {

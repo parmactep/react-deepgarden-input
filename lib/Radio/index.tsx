@@ -5,9 +5,8 @@ import { withClassName } from 'react-deepgarden';
 import input from '../input';
 
 interface IRadioInputProps{
-    onChange?:(values: boolean )=>void;
+	onChange?: (values: boolean) => void;
 	value?: any;
-
 }
 
 class RadioInput extends React.Component <IRadioInputProps> {

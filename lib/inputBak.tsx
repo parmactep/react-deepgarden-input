@@ -6,7 +6,7 @@ import './input.styl';
 
 interface IinputBak{
 	[x: string]: any;
-	onChange?: (value: any)=>void;
+	onChange?: (value: any) => void;
 	className?: string;
 	style?: any;
 

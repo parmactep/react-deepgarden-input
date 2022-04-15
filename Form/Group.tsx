@@ -2,12 +2,12 @@ import React from 'react';
 
 interface IGroup{
 	[x: string]: any;
-    title?: string;
-    controls?: React.ReactNode;
-    children?: React.ReactNode;
+	title?: string;
+	controls?: React.ReactNode;
+	children?: React.ReactNode;
 }
 
-export default function ({ title, controls, children, ...props }:IGroup) {
+export default function ({ title, controls, children, ...props }: IGroup) {
 	return (
 		<div className="_Form__Group" {...props}>
 			{(title || controls)

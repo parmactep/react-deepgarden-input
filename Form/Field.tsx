@@ -13,18 +13,11 @@ interface IFieldProps {
 	_inline?: string;
 	_view?: any;
 	className?: string;
-	validate?: (value: any)=> any;
+	validate?: (value: any) => any;
 	error?: any;
 	children?: React.ReactNode;
 	onBlur?: (e: React.SyntheticEvent) => void;
 	onChange?: (e: React.ChangeEvent) => void;
-}
-
-interface IFieldConsumerProps {
-	values?: string;
-	handleChange?: any;
-	errors?: any;
-	handleError?: any;
 }
 
 const Field = React.forwardRef(({
@@ -46,7 +39,7 @@ const Field = React.forwardRef(({
 			handleChange,
 			errors,
 			handleError,
-		}:IFieldConsumerProps) => {
+		}) => {
 			const value = get(values, name);
 			return (
 				<div className={classNames('_Form__Field', { '_Form__Field--Inline': _inline }, className)}>

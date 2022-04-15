@@ -3,12 +3,12 @@ import classNames from 'classnames';
 
 interface IinputComponentProps {
 	[x: string]: any;
-    className: string;
-	onBlur: (e: React.SyntheticEvent) => void;
-	onFocus: (e: React.FocusEvent) => void;
+	className?: string;
+	onBlur?: (e: React.SyntheticEvent) => void;
+	onFocus?: (e: React.FocusEvent) => void;
 }
 
-export default function input(inputClassName: any, Tag: any = 'label') {
+export default function input(inputClassName: string, Tag: any = 'label') {
 	return (Component: any) => React.forwardRef(({
 		className,
 		onBlur,

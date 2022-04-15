@@ -5,15 +5,15 @@ import { withClassName } from 'react-deepgarden';
 import input from '../input';
 
 interface ITextareaInputProps{
-    onChange?:(values: string )=>void;
+	onChange?: (values: string) => void;
 	value?: string;
 }
 
-class TextareaInput extends React.Component <ITextareaInputProps> {
+class TextareaInput extends React.Component<ITextareaInputProps> {
 	static defaultProps = {
 		value: '',
 	}
-	handleChange = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+	handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		this.props.onChange(e.target.value);
 	}
 	render() {

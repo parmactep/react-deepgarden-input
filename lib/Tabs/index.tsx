@@ -11,8 +11,8 @@ interface Ioptions{
 }
 
 interface ITabsInputProps{
-    onChange?:(values: boolean )=>void;
-	options?:Ioptions[] | undefined;
+	onChange?:(values: boolean) => void;
+	options?: Ioptions[] | undefined;
 	value?: boolean;
 }
 
@@ -20,10 +20,10 @@ class TabsInput extends React.Component <ITabsInputProps> {
 	static defaultProps = {
 		value: false,
 	};
-	handleChange = (value:boolean) => {
+	handleChange = (value: boolean) => {
 		this.props.onChange(value);
 	};
-	renderOption = (option:Ioptions, key: React.Key) => (
+	renderOption = (option: Ioptions, key: React.Key) => (
 		<div
 			key={key}
 			className={classNames('_TabsInput__Option', { '_TabsInput__Option--isActive': this.props.value === option.value })}

@@ -6,13 +6,13 @@ import { Button, withClassName } from 'react-deepgarden';
 import input from '../input';
 
 interface IFileProps{
-	onChange?:(file: globalThis.File )=>void;
+	onChange?:(file: globalThis.File ) => void;
 	dropZone?: any;
 	withSampleFile?: any;
 	value?: any;
 }
 
-class File extends React.Component <IFileProps> {
+class File extends React.Component<IFileProps> {
 	private _input: any;
 	static defaultProps = {
 		value: '',
@@ -28,7 +28,7 @@ class File extends React.Component <IFileProps> {
 		window.removeEventListener('dragover', this._preventDefault, false);
 		window.addEventListener('drop', this._preventDefault, false);
 	}
-	_preventDefault = (e:any) => e.preventDefault();
+	_preventDefault = (e: any) => e.preventDefault();
 
 	handleOpenInput = () => {
 		this._input.click();

@@ -8,7 +8,7 @@ import Group from './Group';
 
 interface IFormProps {
 	initialValues?: any;
-    errors?: any;
+	errors?: any;
 	validationSchema?: any;
 	validate?: any;
 	inner?: string;
@@ -18,14 +18,14 @@ interface IFormProps {
 
 interface IFormState {
 	values?: any;
-    errors?: any;
+	errors?: any;
 }
 
 interface IFormDefaultProps { 
 	initialValues?: any; 
 	errors?: any; 
-	validate: () => void; 
-	onSubmit: () => void; 
+	validate?: () => void; 
+	onSubmit?: () => void; 
 }
 
 class Form extends React.Component<IFormProps, IFormState>{
@@ -36,7 +36,6 @@ class Form extends React.Component<IFormProps, IFormState>{
 	static defaultProps: IFormDefaultProps;
 	static Field: any;
 	static Group: any;
-
 
 	get = (name: any) => {
 		return this.state.values[name];

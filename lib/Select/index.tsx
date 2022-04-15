@@ -10,14 +10,13 @@ interface Ioptions{
 }
 
 interface ISelectProps{
-    onChange?:(values: string|undefined )=>void;
+	onChange?: (values: string | undefined) => void;
 	value?: any;
-	options?:Ioptions[] | undefined;
+	options?: Ioptions[] | undefined;
 	placeholder?: string
-
 }
 
-class Select extends React.Component <ISelectProps> {
+class Select extends React.Component<ISelectProps> {
 	static defaultProps: ISelectProps = {
 		options: [],
 	};
@@ -26,7 +25,7 @@ class Select extends React.Component <ISelectProps> {
 			? this.props.options[e.target.value].value
 			: undefined); // Pick option by key to save value type
 	};
-	renderOption = (option:Ioptions, key: React.Key) => {
+	renderOption = (option: Ioptions, key: React.Key) => {
 		return <option key={key} value={key}>{option.label}</option>
 	};
 	render() {

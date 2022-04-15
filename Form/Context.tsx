@@ -1,3 +1,12 @@
 import React from 'react';
 
-export default React.createContext({})
+interface IFormContext{
+	values?: string;
+	handleChange?: any;
+	errors?: any;
+	handleError?: any;
+}
+
+const Context = React.createContext({} as IFormContext)
+
+export default Context;
