@@ -1,8 +1,8 @@
 import React from 'react';
 
-export Form from './Form';
+export { default as Form } from './Form';
 
-export input from './lib/input';
+export { default as input } from './lib/input';
 
 import Input from './lib';
 
