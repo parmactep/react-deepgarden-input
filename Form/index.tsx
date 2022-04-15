@@ -6,6 +6,7 @@ import Context, { IFormContext } from './Context';
 import Field from './Field';
 import Group from './Group';
 
+type Ivalues = Record<string | number, any>;
 interface IFormProps {
 	initialValues?: Record<string | number, any>;
 	errors?: Record<string, string>;
@@ -13,7 +14,7 @@ interface IFormProps {
 	validate?: any;
 	inner?: string;
 	children?: any;
-	onSubmit?: (values: Record<string | number, any>) => void 
+	onSubmit?: ((values: Ivalues) => void) | ((values: Ivalues, domain?: string) => Promise<void>)
 }
 
 interface IFormState {
