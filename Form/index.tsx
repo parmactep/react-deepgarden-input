@@ -8,7 +8,7 @@ import Group from './Group';
 
 type Ivalues = Record<string | number, any>;
 interface IFormProps {
-	initialValues?: Record<string | number, any>;
+	initialValues?: Ivalues;
 	errors?: Record<string, string>;
 	validationSchema?: any;
 	validate?: any;
@@ -18,7 +18,7 @@ interface IFormProps {
 }
 
 interface IFormState {
-	values?: Record<string | number, any>;
+	values?: Ivalues;
 	errors?: Record<string, string>;
 }
 
