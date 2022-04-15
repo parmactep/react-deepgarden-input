@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
-interface IinputComponentProps {
+export interface IInputComponentProps {
 	[x: string]: any;
 	className?: string;
 	onBlur?: (e: React.SyntheticEvent) => void;
@@ -14,7 +14,7 @@ export default function input(inputClassName: string, Tag: any = 'label') {
 		onBlur,
 		onFocus,
 		...props
-	}:IinputComponentProps, ref) => {
+	}:IInputComponentProps, ref) => {
 		const [isFocused, setFocused] = useState(false);
 		return (
 			<Tag className={classNames(
