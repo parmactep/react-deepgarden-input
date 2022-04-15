@@ -1,43 +1,37 @@
 import React from 'react';
 import { set } from 'lodash';
 
-import Context from './Context';
+import Context, { IFormContext } from './Context';
 
 import Field from './Field';
 import Group from './Group';
 
 interface IFormProps {
-	initialValues?: any;
-	errors?: any;
+	initialValues?: Record<string | number, any>;
+	errors?: Record<string, string>;
 	validationSchema?: any;
 	validate?: any;
 	inner?: string;
 	children?: any;
-	onSubmit?: (...values: any ) => any 
+	onSubmit?: (values: Record<string | number, any>) => void 
 }
 
 interface IFormState {
-	values?: any;
-	errors?: any;
+	values?: Record<string | number, any>;
+	errors?: Record<string, string>;
 }
 
-interface IFormDefaultProps { 
-	initialValues?: any; 
-	errors?: any; 
-	validate?: () => void; 
-	onSubmit?: () => void; 
-}
-
-class Form extends React.Component<IFormProps, IFormState>{
+class Form extends React.Component<IFormProps, IFormState> {
 	state = {
 		values: this.props.initialValues,
 		errors: this.props.errors,
 	};
-	static defaultProps: IFormDefaultProps;
-	static Field: any;
-	static Group: any;
+	static defaultProps: Partial<IFormProps>;
+	static Field = Field;
+	static Group = Group;
 
-	get = (name: any) => {
+
+	get(name: string) {
 		return this.state.values[name];
 	};
 	change = (change: any) => {
@@ -88,7 +82,7 @@ class Form extends React.Component<IFormProps, IFormState>{
 				...names,
 			};
 		}
-		const updatedValues = set(this.isArray(this.state.values)
+		const updatedValues = set(Array.isArray(this.state.values)
 			? [...this.state.values]
 			: { ...this.state.values }, names, values);
 		this.setState({
@@ -145,9 +139,6 @@ Form.defaultProps = {
 	validate: () => {},
 	onSubmit: () => {},
 };
-
-Form.Field = Field;
-Form.Group = Group;
 
 export default Form;
 

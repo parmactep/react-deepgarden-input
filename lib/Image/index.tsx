@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import './index.styl';
 
-interface IImageInputProps{
+interface IImageInputProps {
 	onChange?:(file: globalThis.File | string) => void;
 	value?: string;
 	className?: string;

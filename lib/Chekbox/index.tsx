@@ -5,7 +5,7 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface ICheckboxInputProps{
+interface ICheckboxInputProps {
 	onChange: (e: boolean) => void;
 	disabled: boolean;
 	value: boolean;

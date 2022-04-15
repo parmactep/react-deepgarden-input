@@ -5,18 +5,18 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface Ioptions{
+interface Ioptions {
 	value?: boolean;
 	label?: string;
 }
 
-interface ITabsInputProps{
+interface ITabsInputProps {
 	onChange?:(values: boolean) => void;
 	options?: Ioptions[] | undefined;
 	value?: boolean;
 }
 
-class TabsInput extends React.Component <ITabsInputProps> {
+class TabsInput extends React.Component<ITabsInputProps> {
 	static defaultProps = {
 		value: false,
 	};

@@ -1,9 +1,9 @@
 import React from 'react';
 
-interface IFormContext{
-	values?: string;
-	handleChange?: any;
-	errors?: any;
+export interface IFormContext {
+	values?: any;
+	handleChange?: (name: string, newValue: any) => void;
+	errors?: Record<string, string>;
 	handleError?: any;
 }
 

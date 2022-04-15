@@ -6,15 +6,16 @@ import Context from './Context';
 
 import Input from '../index';
 
-interface IFieldProps {
-	[x: string]: any;
+import { IInputComponentProps } from '../lib/input'
+
+interface IFieldProps extends IInputComponentProps {
 	label?: string;
-	name?: any;
-	_inline?: string;
-	_view?: any;
+	name?: string;
+	_inline?: boolean;
+	_view?: boolean;
 	className?: string;
-	validate?: (value: any) => any;
-	error?: any;
+	validate?: (value: any) => Promise<string>;
+	error?: string;
 	children?: React.ReactNode;
 	onBlur?: (e: React.SyntheticEvent) => void;
 	onChange?: (e: React.ChangeEvent) => void;

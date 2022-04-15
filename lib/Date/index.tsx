@@ -8,7 +8,7 @@ import Text from '../Text';
 
 import input from '../input';
 
-interface IDateInputProps{
+interface IDateInputProps {
 	onChange: (date: string) => void;
 	calendarType?: any;
 	locale?: string;

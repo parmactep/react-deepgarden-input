@@ -5,7 +5,7 @@ import { Button, withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface IFileProps{
+interface IFileProps {
 	onChange?:(file: globalThis.File ) => void;
 	dropZone?: any;
 	withSampleFile?: any;

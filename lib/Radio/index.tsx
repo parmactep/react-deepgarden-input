@@ -4,7 +4,7 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface IRadioInputProps{
+interface IRadioInputProps {
 	onChange?: (values: boolean) => void;
 	value?: any;
 }
@@ -13,7 +13,7 @@ class RadioInput extends React.Component <IRadioInputProps> {
 	static defaultProps = {
 		value: false,
 	};
-	handleChange = (e: any) => {
+	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		!!this.props.onChange && this.props.onChange(e.target.checked);
 	};
 	render() {

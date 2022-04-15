@@ -4,8 +4,8 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface INumberInputProps{
-    onChange?:(values: number ) => void;
+interface INumberInputProps {
+    onChange?:(values: number) => void;
 	max?: number;
 	postfix?: string;
 	value?: any;

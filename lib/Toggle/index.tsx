@@ -6,7 +6,7 @@ import { withClassName } from 'react-deepgarden';
 import input from '../input';
 
 interface IToggleInputProps{
-	onChange?:(values: boolean ) => void;
+	onChange?:(values: boolean) => void;
 	value?: any;
 	disabled?: boolean;
 }

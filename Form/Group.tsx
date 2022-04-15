@@ -1,7 +1,6 @@
 import React from 'react';
 
-interface IGroup{
-	[x: string]: any;
+interface IGroup extends React.HTMLAttributes<HTMLDivElement> {
 	title?: string;
 	controls?: React.ReactNode;
 	children?: React.ReactNode;

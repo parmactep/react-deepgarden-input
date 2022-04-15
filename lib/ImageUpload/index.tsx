@@ -4,7 +4,7 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface IImageUploadProps{
+interface IImageUploadProps {
 	onChange?:(file: string) => void;
 	onUpload?:(file: globalThis.File) => any;
 	placeholder?: string;

@@ -4,7 +4,7 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface IPercentInputProps{
+interface IPercentInputProps {
 	onChange?:(values: number ) => void;
 	max?: number;
 	postfix?: string;

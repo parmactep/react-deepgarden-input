@@ -4,7 +4,7 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface ITextInputProps{
+interface ITextInputProps {
 	onChange?: (values: string) => void;
 	value?: string;
 	postfix?: string

@@ -4,7 +4,7 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface ITextareaInputProps{
+interface ITextareaInputProps {
 	onChange?: (values: string) => void;
 	value?: string;
 }
