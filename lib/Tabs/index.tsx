@@ -5,17 +5,25 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-export default
-@withClassName('_Input')
-@input('_TabsInput')
-class TabsInput extends React.Component {
+interface Ioptions {
+	value?: boolean;
+	label?: string;
+}
+
+interface ITabsInputProps {
+	onChange?:(values: boolean) => void;
+	options?: Ioptions[] | undefined;
+	value?: boolean;
+}
+
+class TabsInput extends React.Component<ITabsInputProps> {
 	static defaultProps = {
 		value: false,
 	};
-	handleChange = (value) => {
+	handleChange = (value: boolean) => {
 		this.props.onChange(value);
 	};
-	renderOption = (option, key) => (
+	renderOption = (option: Ioptions, key: React.Key) => (
 		<div
 			key={key}
 			className={classNames('_TabsInput__Option', { '_TabsInput__Option--isActive': this.props.value === option.value })}
@@ -34,3 +42,5 @@ class TabsInput extends React.Component {
 }
 
 import './index.styl';
+
+export default withClassName('_Input')(input('_TabsInput')(TabsInput));

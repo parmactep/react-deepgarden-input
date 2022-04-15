@@ -1,20 +1,40 @@
 import React from 'react';
 import { set } from 'lodash';
 
-import Context from './Context';
+import Context, { IFormContext } from './Context';
 
 import Field from './Field';
 import Group from './Group';
 
-class Form extends React.Component {
+interface IFormProps {
+	initialValues?: Record<string | number, any>;
+	errors?: Record<string, string>;
+	validationSchema?: any;
+	validate?: any;
+	inner?: string;
+	children?: any;
+	onSubmit?: (values: Record<string | number, any>) => void 
+}
+
+interface IFormState {
+	values?: Record<string | number, any>;
+	errors?: Record<string, string>;
+}
+
+class Form extends React.Component<IFormProps, IFormState> {
 	state = {
 		values: this.props.initialValues,
 		errors: this.props.errors,
 	};
-	get = (name) => {
+	static defaultProps: Partial<IFormProps>;
+	static Field = Field;
+	static Group = Group;
+
+
+	get(name: string) {
 		return this.state.values[name];
 	};
-	change = (change) => {
+	change = (change: any) => {
 		this.handleChange(Object.keys(change), Object.values(change));
 	};
 	isValid = () => {
@@ -25,7 +45,7 @@ class Form extends React.Component {
 		}
 		return true;
 	};
-	validate = () => new Promise((resolve, reject) => {
+	validate = () => new Promise<void>((resolve, reject) => {
 		if (this.props.validationSchema) {
 			console.log('VALIDATE', this.state.values);
 			this.props.validationSchema
@@ -39,9 +59,9 @@ class Form extends React.Component {
 				...this.state.errors,
 				...this.props.validate(this.state.values),
 			},
-		}, () => this.isValid() && resolve() || reject(this.state.errors));
+		}, () => this.isValid() ? resolve() : reject(this.state.errors));
 	});
-	handleError = (error) => {
+	handleError = (error: any) => {
 		this.setState({
 			errors: {
 				...this.state.errors,
@@ -49,11 +69,11 @@ class Form extends React.Component {
 			},
 		});
 	};
-	handleChange = (names, values) => { // @TODO: refactor this to handle object with keys-values instead names and values arrays
-		let newValues;
+	handleChange = (names: any, values: any) => { // @TODO: refactor this to handle object with keys-values instead names and values arrays
+		let newValues: any;
 		if (this.isArray(names) && this.isArray(values)) {
 			newValues = this.state.values;
-			names.forEach((name, index) => {
+			names.forEach((name: any, index: number) => {
 				newValues = set({ ...newValues }, name, values[index]);
 			});
 		} else if (typeof names === 'object') {
@@ -62,20 +82,20 @@ class Form extends React.Component {
 				...names,
 			};
 		}
-		const updatedValues = set(this.isArray(this.state.values)
+		const updatedValues = set(Array.isArray(this.state.values)
 			? [...this.state.values]
 			: { ...this.state.values }, names, values);
 		this.setState({
 			values: newValues || (
 				this.isArray(updatedValues)
-					? updatedValues.filter((value) => value !== null)
+					? updatedValues.filter((value: any) => value !== null)
 					: updatedValues
 			),
 			errors: {},
 		});
 	};
-	submit = () => {
-		this.handleSubmit();
+	submit = (e: React.FormEvent) => {
+		this.handleSubmit(e);
 	};
 	reset = (values = {}) => {
 		this.setState({
@@ -83,13 +103,13 @@ class Form extends React.Component {
 			errors: this.props.errors,
 		});
 	};
-	handleSubmit = (e) => {
+	handleSubmit = (e: React.FormEvent) => {
 		e && e.preventDefault();
 		this.validate()
 			.catch((errors) => { throw errors; })
 			.then(() => this.props.onSubmit(this.state.values));
 	};
-	isArray(value) {
+	isArray(value: any) {
 		return value && typeof value === 'object' && value.constructor === Array;
 	}
 	render() {
@@ -119,9 +139,6 @@ Form.defaultProps = {
 	validate: () => {},
 	onSubmit: () => {},
 };
-
-Form.Field = Field;
-Form.Group = Group;
 
 export default Form;
 

@@ -1,6 +1,12 @@
 import React from 'react';
 
-export default function ({ title, controls, children, ...props }) {
+interface IGroup extends React.HTMLAttributes<HTMLDivElement> {
+	title?: string;
+	controls?: React.ReactNode;
+	children?: React.ReactNode;
+}
+
+export default function ({ title, controls, children, ...props }: IGroup) {
 	return (
 		<div className="_Form__Group" {...props}>
 			{(title || controls)

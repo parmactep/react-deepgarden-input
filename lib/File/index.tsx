@@ -5,10 +5,15 @@ import { Button, withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-export default
-@withClassName('_Input')
-@input('_FileInput', 'div')
-class File extends React.Component {
+interface IFileProps {
+	onChange?:(file: globalThis.File ) => void;
+	dropZone?: any;
+	withSampleFile?: any;
+	value?: any;
+}
+
+class File extends React.Component<IFileProps> {
+	private _input: any;
 	static defaultProps = {
 		value: '',
 	};
@@ -23,12 +28,12 @@ class File extends React.Component {
 		window.removeEventListener('dragover', this._preventDefault, false);
 		window.addEventListener('drop', this._preventDefault, false);
 	}
-	_preventDefault = (e) => e.preventDefault();
+	_preventDefault = (e: any) => e.preventDefault();
 
 	handleOpenInput = () => {
 		this._input.click();
 	};
-	handleChange = (e) => {
+	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files[0];
 		this.props.onChange(file);
 	};
@@ -42,7 +47,7 @@ class File extends React.Component {
 			isHighlight: false,
 		});
 	};
-	handleDrop = (e) => {
+	handleDrop = (e: React.DragEvent<HTMLInputElement>) => {
 		e.preventDefault();
 		const file = e.dataTransfer.files[0];
 		this.props.onChange(file);
@@ -59,7 +64,7 @@ class File extends React.Component {
 					{this.props.dropZone}
 				</div>
 				<div className="_FileInput__Image">
-					<Button onClick={this.handleOpenInput}>Choose Files to Upload</Button>
+					<Button onClick={this.handleOpenInput} _type={undefined} _size={undefined}>Choose Files to Upload</Button>
 					{this.props.withSampleFile}
 				</div>
 				<input type="file" ref={(node) => this._input = node} onChange={this.handleChange} className="_FileInput__Input" />
@@ -69,3 +74,5 @@ class File extends React.Component {
 }
 
 import './index.styl';
+
+export default withClassName('_Input')(input('_FileInput', 'div')(File));

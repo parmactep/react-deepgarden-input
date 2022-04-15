@@ -4,15 +4,18 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-export default
-@withClassName('_Input')
-@input('_TextInput')
-class TextInput extends React.Component {
+interface ITextInputProps {
+	onChange?: (values: string) => void;
+	value?: string;
+	postfix?: string
+}
+
+class TextInput extends React.Component<ITextInputProps> {
 	static defaultProps = {
 		value: '',
 		autoCapitalize: 'none',
 	};
-	handleChange = (e) => {
+	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		this.props.onChange(e.target.value);
 	};
 	render() {
@@ -32,3 +35,5 @@ class TextInput extends React.Component {
 }
 
 import './index.styl';
+
+export default withClassName('_Input')(input('_TextInput')(TextInput));

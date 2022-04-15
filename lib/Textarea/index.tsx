@@ -4,14 +4,16 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-export default
-@withClassName('_Input')
-@input('_TextareaInput')
-class TextareaInput extends React.Component {
+interface ITextareaInputProps {
+	onChange?: (values: string) => void;
+	value?: string;
+}
+
+class TextareaInput extends React.Component<ITextareaInputProps> {
 	static defaultProps = {
 		value: '',
 	}
-	handleChange = (e) => {
+	handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		this.props.onChange(e.target.value);
 	}
 	render() {
@@ -20,3 +22,5 @@ class TextareaInput extends React.Component {
 }
 
 import './index.styl';
+
+export default withClassName('_Input')(input('_TextareaInput')(TextareaInput));

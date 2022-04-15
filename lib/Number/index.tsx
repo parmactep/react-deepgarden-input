@@ -4,17 +4,21 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-export default
-@withClassName('_Input')
-@input('_NumberInput')
-class NumberInput extends React.Component {
+interface INumberInputProps {
+    onChange?:(values: number) => void;
+	max?: number;
+	postfix?: string;
+	value?: any;
+}
+
+class NumberInput extends React.Component<INumberInputProps> {
 	static defaultProps = {
 		value: '',
 	}
-	handleChange = (e) => {
+	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		this.props.max ? +e.target.value <= this.props.max && this.props.onChange(+e.target.value) : this.props.onChange(+e.target.value);
 	}
-	handleInput = (e) => {
+	handleInput = (e: any) => {
 		e.target.value = +e.target.value;
 	}
 	render() {
@@ -39,3 +43,5 @@ class NumberInput extends React.Component {
 }
 
 import './index.styl';
+
+export default withClassName('_Input')(input('_NumberInput')(NumberInput));

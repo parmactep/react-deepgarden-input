@@ -6,6 +6,21 @@ import Context from './Context';
 
 import Input from '../index';
 
+import { IInputComponentProps } from '../lib/input'
+
+interface IFieldProps extends IInputComponentProps {
+	label?: string;
+	name?: string;
+	_inline?: boolean;
+	_view?: boolean;
+	className?: string;
+	validate?: (value: any) => Promise<string>;
+	error?: string;
+	children?: React.ReactNode;
+	onBlur?: (e: React.SyntheticEvent) => void;
+	onChange?: (e: React.ChangeEvent) => void;
+}
+
 const Field = React.forwardRef(({
 	label,
 	name,
@@ -18,7 +33,7 @@ const Field = React.forwardRef(({
 	onBlur,
 	onChange,
 	...props
-}, ref) => (
+}: IFieldProps, ref) => (
 	<Context.Consumer>
 		{({
 			values,
@@ -48,13 +63,13 @@ const Field = React.forwardRef(({
 							className="_Form__Input"
 							{...props}
 							{...(name && (value !== undefined)) && { ...{ name, value } }}
-							onBlur={(e) => {
+							onBlur={(e: any) => {
 								onBlur && onBlur(e);
 								validate && validate(value)
-									.then((validationError) => Object.keys(validationError || {}).length && handleError({ [name]: validationError }))
-									.catch((validationError) => handleError({ [name]: validationError }));
+									.then((validationError: any) => Object.keys(validationError || {}).length && handleError({ [name]: validationError }))
+									.catch((validationError: any) => handleError({ [name]: validationError }));
 							}}
-							onChange={(newValue) => {
+							onChange={(newValue: any) => {
 								onChange && onChange(newValue);
 								name && handleChange(name, newValue);
 							}}
