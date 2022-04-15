@@ -10,6 +10,7 @@ import Tabs from './Tabs';
 import Image from './Image';
 import File from './File';
 import ImageUpload from './ImageUpload';
+import Password from './Password';
 
 import Date from './Date';
 import Percent from './Percent';
@@ -25,6 +26,7 @@ const types = {
 	image: Image,
 	date: Date,
 	percent: Percent,
+	password: Password,
 	toggle: Toggle,
 	file: File,
 	imageUpload: ImageUpload,
