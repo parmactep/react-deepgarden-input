@@ -32,7 +32,7 @@ const Field = React.forwardRef(({
 	onBlur,
 	onChange,
 	...props
-}:IFieldProps, ref) => (
+}: IFieldProps, ref) => (
 	<Context.Consumer>
 		{({
 			values,
@@ -62,7 +62,7 @@ const Field = React.forwardRef(({
 							className="_Form__Input"
 							{...props}
 							{...(name && (value !== undefined)) && { ...{ name, value } }}
-							onBlur={(e:any) => {
+							onBlur={(e: any) => {
 								onBlur && onBlur(e);
 								validate && validate(value)
 									.then((validationError: any) => Object.keys(validationError || {}).length && handleError({ [name]: validationError }))
