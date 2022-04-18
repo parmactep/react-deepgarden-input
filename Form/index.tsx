@@ -6,18 +6,19 @@ import Context, { IFormContext } from './Context';
 import Field from './Field';
 import Group from './Group';
 
+type IValues = Record<string | number, any>;
 interface IFormProps {
-	initialValues?: Record<string | number, any>;
+	initialValues?: IValues;
 	errors?: Record<string, string>;
 	validationSchema?: any;
 	validate?: any;
 	inner?: string;
 	children?: any;
-	onSubmit?: (values: Record<string | number, any>) => void 
+	onSubmit?: ((values: IValues) => void) | ((values: IValues, domain?: string) => Promise<void>)
 }
 
 interface IFormState {
-	values?: Record<string | number, any>;
+	values?: IValues;
 	errors?: Record<string, string>;
 }
 
