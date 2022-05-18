@@ -8,6 +8,7 @@ interface IImageUploadProps {
 	onChange?:(file: string) => void;
 	onUpload?:(file: globalThis.File) => any;
 	placeholder?: string;
+	placeholderText?: string;
 	value?: string;
 	className?: string;
 }
@@ -40,6 +41,9 @@ class ImageUpload extends React.Component<IImageUploadProps> {
 					<div className="_ImageUploadInput__NoImage">
 						No image
 					</div>
+				)}
+				{!!this.props.placeholderText && (
+					<div className="_ImageUploadInput__PlaceholderText">{this.props.placeholderText}</div>
 				)}
 				<input type="file" ref={(node) => this._input = node} accept="image/*" onChange={this.handleImageSelect} className="_ImageUploadInput__Input" />
 			</div>
