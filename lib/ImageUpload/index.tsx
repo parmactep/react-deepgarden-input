@@ -43,7 +43,12 @@ class ImageUpload extends React.Component<IImageUploadProps> {
 					</div>
 				)}
 				{!!this.props.placeholderText && (
-					<div className="_ImageUploadInput__PlaceholderText">{this.props.placeholderText}</div>
+					<div
+						className="_ImageUploadInput__PlaceholderText"
+						style={!this.props.value ? { display: 'flex' } : {}}
+					>
+						{this.props.placeholderText}
+					</div>
 				)}
 				<input type="file" ref={(node) => this._input = node} accept="image/*" onChange={this.handleImageSelect} className="_ImageUploadInput__Input" />
 			</div>

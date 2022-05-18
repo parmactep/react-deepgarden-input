@@ -21,14 +21,17 @@
 	&__NoImage
 		margin: auto
 
-	&__PlaceholderText
+	&:hover &__PlaceholderText
 		display: flex
+
+	&__PlaceholderText
+		display: none
 		align-items: center
 		justify-content: center
 		position: absolute
-		top: 0
 		right: 0
 		bottom: 0
 		left: 0
-		background: rgba(0, 0, 0, 0.3)
+		background: rgba(0, 0, 0, 0.5)
 		color: #FFF
+		padding: 10px
