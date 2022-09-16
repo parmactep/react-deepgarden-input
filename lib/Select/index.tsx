@@ -7,6 +7,7 @@ import input from '../input';
 interface Ioptions{
 	label?: string;
 	value?: string;
+	disabled?: boolean;
 }
 
 interface ISelectProps{
@@ -26,7 +27,7 @@ class Select extends React.Component<ISelectProps> {
 			: undefined); // Pick option by key to save value type
 	};
 	renderOption = (option: Ioptions, key: React.Key) => {
-		return <option key={key} value={key}>{option.label}</option>
+		return <option key={key} value={key}  disabled={option.disabled} >{option.label}</option>
 	};
 	render() {
 		const { options, placeholder, ...props } = this.props;
