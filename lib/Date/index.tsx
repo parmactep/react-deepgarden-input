@@ -20,6 +20,7 @@ interface IDateInputProps {
 	disabled: boolean;
 	maxDate?: Date;
 	minDate?: Date;
+	momentFormat?: null;
 }
 
 class DateInput extends React.Component<IDateInputProps> {
@@ -52,10 +53,15 @@ class DateInput extends React.Component<IDateInputProps> {
 		return (
 			<>
 				<Text
-					value={this.props.value ? date.toLocaleDateString() : ''}
+					value={this.props.value
+						? this.props.momentFormat
+							? moment(date).format(this.props.momentFormat)
+							: date.toLocaleDateString()
+						: ''
+					}
 					onClick={this.toggleCalendar}
-					disabled={this.props.disabled} 
-					_type={undefined} 
+					disabled={this.props.disabled}
+					_type={undefined}
 					_size={undefined}				/>
 				{this.state.isShowCalendar
 				&& (
