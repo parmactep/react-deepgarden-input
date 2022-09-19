@@ -1,5 +1,6 @@
 import React from 'react';
 import { set } from 'lodash';
+import classNames from 'classnames';
 
 import Context, { IFormContext } from './Context';
 
@@ -8,6 +9,7 @@ import Group from './Group';
 
 type IValues = Record<string | number, any>;
 interface IFormProps {
+	className?: string;
 	initialValues?: IValues;
 	errors?: Record<string, string>;
 	validationSchema?: any;
@@ -116,7 +118,10 @@ class Form extends React.Component<IFormProps, IFormState> {
 	render() {
 		const Component = this.props.inner ? 'div' : 'form';
 		return (
-			<Component className="_Form" onSubmit={this.handleSubmit}>
+			<Component
+				className={classNames('_Form', this.props.className)}
+				onSubmit={this.handleSubmit}
+			>
 				<Context.Provider value={{
 					values: this.state.values,
 					errors: this.state.errors,
