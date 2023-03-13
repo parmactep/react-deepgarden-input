@@ -40,10 +40,12 @@ class DateInput extends React.Component<IDateInputProps> {
 		this.props.onChange(date.toLocaleDateString(this.props.locale, this.props.options));
 		this.toggleCalendar();
 	};
-	toggleCalendar = () => {
-		this.setState({
-			isShowCalendar: !this.state.isShowCalendar,
-		});
+	toggleCalendar = (event?: any) => {
+		if (!event?.target?.parentNode?.className?.includes('react-calendar')) {
+			this.setState({
+				isShowCalendar: !this.state.isShowCalendar,
+			});
+		}
 	}
 	render() {
 
