@@ -2,7 +2,7 @@ import React from 'react';
 
 export interface IFormContext {
 	values?: any;
-	handleChange?: (name: string, newValue: any) => void;
+	handleChange?: (name: string | Record<string,  any>, newValue?: any) => void;
 	errors?: Record<string, string>;
 	handleError?: any;
 }

@@ -4,10 +4,13 @@ import classNames from 'classnames';
 
 import Context, { IFormContext } from './Context';
 
+export * from './Context';
+
 import Field from './Field';
 import Group from './Group';
 
 type IValues = Record<string | number, any>;
+
 interface IFormProps {
 	className?: string;
 	initialValues?: IValues;
@@ -72,7 +75,7 @@ class Form extends React.Component<IFormProps, IFormState> {
 			},
 		});
 	};
-	handleChange = (names: any, values: any) => { // @TODO: refactor this to handle object with keys-values instead names and values arrays
+	handleChange = (names: any, values?: any) => { // @TODO: refactor this to handle object with keys-values instead names and values arrays
 		let newValues: any;
 		if (this.isArray(names) && this.isArray(values)) {
 			newValues = this.state.values;
