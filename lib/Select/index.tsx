@@ -22,7 +22,7 @@ function Select({
 	value,
 	placeholder,
 	onChange,
-	...props
+	...rest
 }: ISelectProps) {
 	const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const index = e.target.value ? parseInt(e.target.value, 10) : undefined;
@@ -38,7 +38,7 @@ function Select({
 	);
 	return (
 		<select
-			{...props}
+			{...rest}
 			value={options.findIndex((option) => option.value === value)}
 			onChange={handleChange}
 		>

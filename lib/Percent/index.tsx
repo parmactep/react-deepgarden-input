@@ -11,20 +11,20 @@ export interface IPercentInputProps extends React.FormEventHandler<HTMLInputElem
 	value?: number;
 }
 
-function PercentInput(props: IPercentInputProps) {
-	const {
-		onChange,
-		value = 0,
-	} = props;
+function PercentInput({
+	onChange,
+	value = 0,
+	...rest
+}: IPercentInputProps) {
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const changeValue = Number(e.target.value);
 		if (Number.isNaN(changeValue)) return;
-		onChange(changeValue / 100);
+		onChange && onChange(changeValue / 100);
 	};
 
 	return (
 		<div className="_PercentInput__Input">
-			<input {...props} onChange={handleChange} value={(value * 100)} />
+			<input {...rest} onChange={handleChange} value={(value * 100)} />
 			<div className="_PercentInput__Ico">
 				%
 			</div>

@@ -10,7 +10,7 @@ export default function input(inputClassName: string, Tag: React.ElementType = '
 		className,
 		onBlur,
 		onFocus,
-		...props
+		...rest
 	}:IInputComponentProps, ref) => {
 		const [isFocused, setFocused] = useState(false);
 		const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
@@ -30,7 +30,7 @@ export default function input(inputClassName: string, Tag: React.ElementType = '
 			)}
 			>
 				<Component
-					{...props}
+					{...rest}
 					ref={ref}
 					onFocus={handleFocus}
 					onBlur={handleBlur}

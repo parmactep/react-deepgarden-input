@@ -9,14 +9,18 @@ export interface IRadioInputProps extends React.FormEventHandler<HTMLInputElemen
 	value?: boolean;
 }
 
-function RadioInput({ onChange, value = false, ...props }: IRadioInputProps) {
+function RadioInput({
+	onChange,
+	value = false,
+	...rest
+}: IRadioInputProps) {
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		onChange && onChange(e.target.checked);
 	};
 
 	return (
 		<div className="_RadioInput__Input">
-			<input {...props} type="radio" onChange={handleChange} checked={value} />
+			<input {...rest} type="radio" onChange={handleChange} checked={value} />
 		</div>
 	);
 }
