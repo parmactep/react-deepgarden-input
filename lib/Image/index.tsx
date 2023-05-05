@@ -1,34 +1,28 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 import classNames from 'classnames';
 
 import './index.styl';
 
-interface IImageInputProps {
+export interface IImageInputProps {
 	onChange?:(file: globalThis.File | string) => void;
 	value?: string;
 	className?: string;
 }
 
-export default class ImageInput extends React.Component<IImageInputProps> {
-	static className = '_ImageInput';
-	static defaultProps = {
-		value: '',
+export default function ImageInput({
+	value = '',
+	className,
+	onChange,
+}: IImageInputProps) {
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		onChange && onChange(e.target.value);
 	};
-	handleImageSelect = (e:React.ChangeEvent<HTMLInputElement>) => {
-		this.props.onChange && this.props.onChange(e.target.files[0]);
-	};
-	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		this.props.onChange && this.props.onChange(e.target.value);
-	};
-	render() {
-		const { className, ...props } = this.props;
-		return (
-			<div className={classNames('_Input', '_ImageInput', className)}>
-				{!!this.props.value
-				&& <img className="_ImageInput__Image" src={this.props.value} />}
-				<input {...props} type="file" onChange={this.handleChange} value={this.props.value} />
-			</div>
-		);
-	}
+
+	return (
+		<div className={classNames('_Input', '_ImageInput', className)}>
+			{value && <img alt="" className="_ImageInput__Image" src={value} />}
+			<input type="file" onChange={handleChange} value={value} />
+		</div>
+	);
 }

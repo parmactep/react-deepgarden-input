@@ -5,34 +5,35 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface IToggleInputProps{
+export interface IToggleInputProps extends React.FormEventHandler<HTMLInputElement>{
 	onChange?:(values: boolean) => void;
-	value?: any;
+	value?: boolean;
 	disabled?: boolean;
 }
 
-class ToggleInput extends React.Component<IToggleInputProps> {
-	static defaultProps = {
-		value: false,
+function ToggleInput({
+	onChange,
+	value = false,
+	disabled = false,
+	...rest
+}: IToggleInputProps) {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		onChange && onChange(e.target.checked);
 	};
-	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		this.props.onChange(e.target.checked);
-	};
-	render() {
-		const value = !!+this.props.value;
-		return (
-			<label
-				className={classNames('_ToggleInput__Input', {'_ToggleInput__Input--True' : value}, {'_ToggleInput__Input--isDisabled' : this.props.disabled})}
-			>
-				<input
-					{...this.props}
-					type="checkbox"
-					onChange={this.handleChange}
-					checked={value}
-				/>
-			</label>
-		);
-	}
+	const checked = !!+value;
+	return (
+		<label
+			className={classNames('_ToggleInput__Input', { '_ToggleInput__Input--True': checked }, { '_ToggleInput__Input--isDisabled': disabled })}
+		>
+			<input
+				{...rest}
+				type="checkbox"
+				onChange={handleChange}
+				checked={value}
+				disabled={disabled}
+			/>
+		</label>
+	);
 }
 
 import './index.styl';

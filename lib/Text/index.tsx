@@ -4,34 +4,35 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface ITextInputProps {
+export interface ITextInputProps extends React.FormEventHandler<HTMLInputElement> {
 	onChange?: (values: string) => void;
 	value?: string;
-	postfix?: string
+	postfix?: string;
+	autoCapitalize?: string;
 }
 
-class TextInput extends React.Component<ITextInputProps> {
-	static defaultProps = {
-		value: '',
-		autoCapitalize: 'none',
+function TextInput({
+	value = '',
+	postfix,
+	onChange,
+	autoCapitalize = 'none',
+	...rest
+}: ITextInputProps) {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		onChange && onChange(e.target.value);
 	};
-	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		this.props.onChange(e.target.value);
-	};
-	render() {
-		const { postfix, ...props } = this.props;
-		return (
-			<div className="_TextInput__Wrapper">
-				<input type="text" {...props} onChange={this.handleChange} value={this.props.value} />
-				{postfix
+
+	return (
+		<div className="_TextInput__Wrapper">
+			<input type="text" {...rest} value={value} onChange={handleChange} autoCapitalize={autoCapitalize} />
+			{postfix
 				&& (
 					<div className="_TextInput__Postfix">
 						{postfix}
 					</div>
 				)}
-			</div>
-		);
-	}
+		</div>
+	);
 }
 
 import './index.styl';

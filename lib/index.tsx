@@ -10,16 +10,11 @@ import Tabs from './Tabs';
 import Image from './Image';
 import File from './File';
 import ImageUpload from './ImageUpload';
-
 import Date from './Date';
 import Percent from './Percent';
 import Toggle from './Toggle';
 
-interface Itypes{
-	[x: string]: any;
-}
-
-const types: Itypes = {
+const types: Record<string, any> = {
 	number: Number,
 	textarea: Textarea,
 	checkbox: Checkbox,
@@ -34,14 +29,13 @@ const types: Itypes = {
 	imageUpload: ImageUpload,
 };
 
-interface Iinput {
-	[x: string]: any;
-	type: string;
+interface Iinput extends React.InputHTMLAttributes<HTMLInputElement> {
+	type?: string;
 }
 
-const input = React.forwardRef((props: Iinput, ref: any) => {
+const input = React.forwardRef((props: Iinput, ref: React.Ref<any>) => {
 	const Component = types[props.type] || Text;
 	return Component && <Component {...props} ref={ref} />;
 });
 
-export default input
+export default input;
