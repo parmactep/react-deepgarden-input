@@ -101,7 +101,7 @@ class Form extends React.Component<IFormProps, IFormState> {
 		});
 	};
 	submit = (e: React.FormEvent) => {
-		this.handleSubmit(e);
+		return this.handleSubmit(e);
 	};
 	reset = (values = {}) => {
 		this.setState({
@@ -111,7 +111,7 @@ class Form extends React.Component<IFormProps, IFormState> {
 	};
 	handleSubmit = (e: React.FormEvent) => {
 		e && e.preventDefault();
-		this.validate()
+		return this.validate()
 			.catch((errors) => { throw errors; })
 			.then(() => this.props.onSubmit(this.state.values));
 	};
