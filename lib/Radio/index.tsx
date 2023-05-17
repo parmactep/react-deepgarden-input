@@ -4,25 +4,25 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface IRadioInputProps {
+export interface IRadioInputProps extends React.FormEventHandler<HTMLInputElement> {
 	onChange?: (values: boolean) => void;
-	value?: any;
+	value?: boolean;
 }
 
-class RadioInput extends React.Component <IRadioInputProps> {
-	static defaultProps = {
-		value: false,
+function RadioInput({
+	onChange,
+	value = false,
+	...rest
+}: IRadioInputProps) {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		onChange && onChange(e.target.checked);
 	};
-	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		!!this.props.onChange && this.props.onChange(e.target.checked);
-	};
-	render() {
-		return (
-			<div className="_RadioInput__Input">
-				<input {...this.props} type="radio" onChange={this.handleChange} checked={this.props.value} />
-			</div>
-		);
-	}
+
+	return (
+		<div className="_RadioInput__Input">
+			<input {...rest} type="radio" onChange={handleChange} checked={value} />
+		</div>
+	);
 }
 
 import './index.styl';

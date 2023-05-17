@@ -5,45 +5,47 @@ import { withClassName } from 'react-deepgarden';
 import input from '../input';
 
 interface Ioptions{
-	label?: string;
-	value?: string;
+	label: string;
+	value: string;
 	disabled?: boolean;
 }
 
-interface ISelectProps{
+export interface ISelectProps extends React.FormEventHandler<HTMLInputElement>{
 	onChange?: (values: string | undefined) => void;
-	value?: any;
+	value?: string;
 	options?: Ioptions[] | undefined;
 	placeholder?: string
 }
 
-class Select extends React.Component<ISelectProps> {
-	static defaultProps: ISelectProps = {
-		options: [],
+function Select({
+	options = [],
+	value,
+	placeholder,
+	onChange,
+	...rest
+}: ISelectProps) {
+	const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		const index = e.target.value ? parseInt(e.target.value, 10) : undefined;
+		const selectedOption = options[index];
+		const selectedValue = selectedOption ? selectedOption.value : undefined;
+		onChange && onChange(selectedValue);
 	};
-	handleChange = (e: any) => {
-		this.props.onChange(this.props.options[e.target.value]
-			? this.props.options[e.target.value].value
-			: undefined); // Pick option by key to save value type
-	};
-	renderOption = (option: Ioptions, key: React.Key) => {
-		return <option key={key} value={key}  disabled={option.disabled} >{option.label}</option>
-	};
-	render() {
-		const { options, placeholder, ...props } = this.props;
-		const value = options.findIndex((option) => option.value === this.props.value);
 
-		return (
-			<select
-				{...props}
-				value={value}
-				onChange={this.handleChange}
-			>
-				{placeholder && <option value={null}>{placeholder}</option>}
-				{options.map(this.renderOption)}
-			</select>
-		);
-	}
+	const renderOption = (option: Ioptions, key: React.Key) => (
+		<option key={key} value={key} disabled={option.disabled}>
+			{option.label}
+		</option>
+	);
+	return (
+		<select
+			{...rest}
+			value={options.findIndex((option) => option.value === value)}
+			onChange={handleChange}
+		>
+			{placeholder && <option value={null}>{placeholder}</option>}
+			{options.map(renderOption)}
+		</select>
+	);
 }
 
 import './index.styl';

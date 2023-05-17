@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, FocusEvent } from 'react';
 import classNames from 'classnames';
 
-export interface IInputComponentProps {
-	[x: string]: any;
+export interface IInputComponentProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	className?: string;
-	onBlur?: (e: React.SyntheticEvent) => void;
-	onFocus?: (e: React.FocusEvent) => void;
 }
 
-export default function input(inputClassName: string, Tag: any = 'label') {
+export default function input(inputClassName: string, Tag: React.ElementType = 'label') {
 	return (Component: any) => React.forwardRef(({
 		className,
 		onBlur,
 		onFocus,
-		...props
+		...rest
 	}:IInputComponentProps, ref) => {
 		const [isFocused, setFocused] = useState(false);
+		const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
+			setFocused(true);
+			onFocus && onFocus(e);
+		};
+
+		const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
+			setFocused(false);
+			onBlur && onBlur(e);
+		};
 		return (
 			<Tag className={classNames(
 				className,
@@ -24,16 +30,10 @@ export default function input(inputClassName: string, Tag: any = 'label') {
 			)}
 			>
 				<Component
-					{...props}
+					{...rest}
 					ref={ref}
-					onFocus={(e: any) => {
-						setFocused(true);
-						onFocus && onFocus(e);
-					}}
-					onBlur={(e: any) => {
-						setFocused(false);
-						onBlur && onBlur(e);
-					}}
+					onFocus={handleFocus}
+					onBlur={handleBlur}
 				/>
 			</Tag>
 		);

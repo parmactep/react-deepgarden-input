@@ -1,87 +1,83 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Calendar from 'react-calendar/dist/entry.nostyle';
 import moment from 'moment';
 
-import { withClassName, DropDown, OutsideClick } from 'react-deepgarden';
+import { withClassName, OutsideClick } from 'react-deepgarden';
 
 import Text from '../Text';
 
 import input from '../input';
 
-interface IDateInputProps {
+export interface IDateInputProps {
 	onChange: (date: string) => void;
 	calendarType?: any;
 	locale?: string;
 	options?: {
 		timeZone?: string;
-		dateStyle?: string;
+		dateStyle?: "long" | "short" | "full" | "medium";
 	};
-	value: any;
+	value: Date;
 	disabled: boolean;
 	maxDate?: Date;
 	minDate?: Date;
-	momentFormat?: null;
+	momentFormat?: string;
 }
 
-class DateInput extends React.Component<IDateInputProps> {
-	static defaultProps = {
-		calendarType: 'ISO 8601',
-		locale: 'en-US',
-		options: {
-			timeZone: 'UTC',
-			dateStyle: 'short',
-		},
+function DateInput({
+	onChange,
+	calendarType = 'ISO 8601',
+	locale = 'en-US',
+	options = {
+		timeZone: 'UTC',
+		dateStyle: 'short',
+	},
+	value,
+	disabled,
+	maxDate,
+	minDate,
+	momentFormat,
+}: IDateInputProps) {
+	const [isShowCalendar, setIsShowCalendar] = useState(false);
+	const toggleCalendar = () => {
+		setIsShowCalendar(!isShowCalendar);
 	};
-	state = {
-		isShowCalendar: false,
-	};
-	handleCalendarChange = (date: Date) => {
+	const handleCalendarChange = (date: Date) => {
 		!date.getHours() && date.setHours(Math.abs(date.getTimezoneOffset() / 60));
-		this.props.onChange(date.toLocaleDateString(this.props.locale, this.props.options));
-		this.toggleCalendar();
+		onChange(date.toLocaleDateString(locale, options));
+		toggleCalendar();
 	};
-	toggleCalendar = () => {
-		this.setState({
-			isShowCalendar: !this.state.isShowCalendar,
-		});
-	}
-	render() {
+	const date = value ? moment(value).toDate() : moment().startOf('day').toDate();
 
-		const date = this.props.value
-			? moment(this.props.value).toDate()
-			: moment().startOf('day').toDate();
-		return (
-			<>
-				<Text
-					value={this.props.value
-						? this.props.momentFormat
-							? moment(date).format(this.props.momentFormat)
+	return (
+		<>
+			<Text
+				value={
+					value
+						? momentFormat
+							? moment(date).format(momentFormat)
 							: date.toLocaleDateString()
 						: ''
-					}
-					onClick={this.toggleCalendar}
-					disabled={this.props.disabled}
-					_type={undefined}
-					_size={undefined}				/>
-				{this.state.isShowCalendar
-				&& (
-					<OutsideClick
-						onClickOutside={this.toggleCalendar}
-					>
-						<div className="_DateInput__DropDown">
-							<Calendar
-								maxDate={this.props.maxDate}
-								minDate={this.props.minDate}
-								calendarType={this.props.calendarType}
-								value={date}
-								onChange={this.handleCalendarChange}
-							/>
-						</div>
-					</OutsideClick>
-				)}
-			</>
-		);
-	}
+				}
+				onClick={toggleCalendar}
+				disabled={disabled}
+				_type={undefined}
+				_size={undefined}
+			/>
+			{isShowCalendar && (
+				<OutsideClick onClickOutside={toggleCalendar}>
+					<div className="_DateInput__DropDown">
+						<Calendar
+							maxDate={maxDate}
+							minDate={minDate}
+							calendarType={calendarType}
+							value={date}
+							onChange={handleCalendarChange}
+						/>
+					</div>
+				</OutsideClick>
+			)}
+		</>
+	);
 }
 
 import './index.styl';

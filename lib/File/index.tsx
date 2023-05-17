@@ -1,76 +1,77 @@
-import React from 'react';
+import React, { useState, useRef, useEffect, ReactElement } from 'react';
 import classNames from 'classnames';
 
 import { Button, withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface IFileProps {
-	onChange?:(file: globalThis.File ) => void;
-	dropZone?: any;
-	withSampleFile?: any;
-	value?: any;
+export interface IFileProps {
+	onChange?:(file: globalThis.File) => void;
+	dropZone?: ReactElement;
+	withSampleFile?: ReactElement;
 }
 
-class File extends React.Component<IFileProps> {
-	private _input: any;
-	static defaultProps = {
-		value: '',
-	};
-	state = {
-		isHighlight: false,
-	};
-	componentDidMount() {
-		window.addEventListener('dragover', this._preventDefault, false);
-		window.addEventListener('drop', this._preventDefault, false);
-	}
-	componentWillUnmount() {
-		window.removeEventListener('dragover', this._preventDefault, false);
-		window.addEventListener('drop', this._preventDefault, false);
-	}
-	_preventDefault = (e: any) => e.preventDefault();
+function File({
+	onChange,
+	dropZone,
+	withSampleFile,
+}: IFileProps) {
+	const [isHighlight, setIsHighlight] = useState(false);
+	const inputRef = useRef<HTMLInputElement>(null);
+	const _preventDefault = (e: Event) => e.preventDefault();
 
-	handleOpenInput = () => {
-		this._input.click();
+	useEffect(() => {
+		window.addEventListener('dragover', _preventDefault, false);
+		window.addEventListener('drop', _preventDefault, false);
+
+		return () => {
+			window.removeEventListener('dragover', _preventDefault, false);
+			window.removeEventListener('drop', _preventDefault, false);
+		};
+	}, []);
+
+	const handleOpenInput = () => {
+		inputRef.current.click();
 	};
-	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files[0];
-		this.props.onChange(file);
+		onChange(file);
 	};
-	handleDragEnter = () => {
-		this.setState({
-			isHighlight: true,
-		});
+
+	const handleDragEnter = () => {
+		setIsHighlight(true);
 	};
-	handleDragLeave = () => {
-		this.setState({
-			isHighlight: false,
-		});
+
+	const handleDragLeave = () => {
+		setIsHighlight(false);
 	};
-	handleDrop = (e: React.DragEvent<HTMLInputElement>) => {
+
+	const handleDrop = (e: React.DragEvent<HTMLInputElement>) => {
 		e.preventDefault();
 		const file = e.dataTransfer.files[0];
-		this.props.onChange(file);
+		onChange(file);
 	};
-	render() {
-		return (
-			<>
-				<div
-					className={classNames('_FileInput__DropZone', { '_FileInput__DropZone--isHighlight': this.state.isHighlight })}
-					onDragEnter={this.handleDragEnter}
-					onDragLeave={this.handleDragLeave}
-					onDrop={this.handleDrop}
-				>
-					{this.props.dropZone}
-				</div>
-				<div className="_FileInput__Image">
-					<Button onClick={this.handleOpenInput} _type={undefined} _size={undefined}>Choose Files to Upload</Button>
-					{this.props.withSampleFile}
-				</div>
-				<input type="file" ref={(node) => this._input = node} onChange={this.handleChange} className="_FileInput__Input" />
-			</>
-		);
-	}
+
+	return (
+		<>
+			<div
+				className={classNames('_FileInput__DropZone', { '_FileInput__DropZone--isHighlight': isHighlight })}
+				onDragEnter={handleDragEnter}
+				onDragLeave={handleDragLeave}
+				onDrop={handleDrop}
+			>
+				{dropZone}
+			</div>
+			<div className="_FileInput__Image">
+				<Button onClick={handleOpenInput} _type={undefined} _size={undefined}>
+					Choose Files to Upload
+				</Button>
+				{withSampleFile}
+			</div>
+			<input type="file" ref={inputRef} onChange={handleChange} className="_FileInput__Input" />
+		</>
+	);
 }
 
 import './index.styl';

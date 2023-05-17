@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { set } from 'lodash';
 import classNames from 'classnames';
 
@@ -17,8 +17,8 @@ interface IFormProps {
 	errors?: Record<string, string>;
 	validationSchema?: any;
 	validate?: any;
-	inner?: string;
-	children?: any;
+	inner?: boolean;
+	children?: ReactNode;
 	onSubmit?: ((values: IValues) => void) | ((values: IValues, domain?: string) => Promise<void>)
 }
 

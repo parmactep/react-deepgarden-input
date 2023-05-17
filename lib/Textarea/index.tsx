@@ -4,21 +4,23 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface ITextareaInputProps {
+export interface ITextareaInputProps extends React.FormEventHandler<HTMLInputElement>{
 	onChange?: (values: string) => void;
 	value?: string;
 }
 
-class TextareaInput extends React.Component<ITextareaInputProps> {
-	static defaultProps = {
-		value: '',
-	}
-	handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		this.props.onChange(e.target.value);
-	}
-	render() {
-		return <textarea {...this.props} onChange={this.handleChange} value={this.props.value} />;
-	}
+function TextareaInput({ value = '', onChange, ...rest } : ITextareaInputProps) {
+	const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		onChange && onChange(e.target.value);
+	};
+
+	return (
+		<textarea
+			{...rest}
+			value={value}
+			onChange={handleChange}
+		/>
+	);
 }
 
 import './index.styl';
