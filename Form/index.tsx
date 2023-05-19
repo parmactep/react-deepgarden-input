@@ -100,16 +100,14 @@ class Form extends React.Component<IFormProps, IFormState> {
 			errors: {},
 		});
 	};
-	submit = (e: React.FormEvent) => {
-		this.handleSubmit(e);
-	};
+	submit = (e?: React.FormEvent) => this.handleSubmit(e);
 	reset = (values = {}) => {
 		this.setState({
 			values: {...this.props.initialValues, ...values},
 			errors: this.props.errors,
 		});
 	};
-	handleSubmit = (e: React.FormEvent) => {
+	handleSubmit = (e?: React.FormEvent) => {
 		e && e.preventDefault();
 		this.validate()
 			.catch((errors) => { throw errors; })
