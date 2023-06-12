@@ -12,10 +12,7 @@ interface IDateInputProps {
 	onChange: (date: string) => void;
 	calendarType?: any;
 	locale?: string;
-	options?: {
-		timeZone?: string;
-		dateStyle?: string;
-	};
+	options?: Intl.DateTimeFormatOptions;
 	value: any;
 	disabled: boolean;
 	maxDate?: Date;

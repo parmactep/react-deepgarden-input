@@ -16,7 +16,7 @@ interface IFieldProps extends IInputComponentProps {
 	className?: string;
 	validate?: (value: any) => Promise<string>;
 	error?: string;
-	children?: React.ReactNode;
+	children?: React.ReactNode | ((value: any) => React.ReactNode);
 	onBlur?: (e: React.SyntheticEvent) => void;
 	onChange?: (value: any) => void;
 	component?: React.ComponentType;
