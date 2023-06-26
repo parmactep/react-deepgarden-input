@@ -11,7 +11,7 @@ import Group from './Group';
 
 type IValues = Record<string | number, any>;
 
-interface IFormProps {
+export interface IFormProps {
 	className?: string;
 	initialValues?: IValues;
 	errors?: Record<string, string>;
