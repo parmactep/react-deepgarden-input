@@ -54,7 +54,7 @@ const Field = React.forwardRef(({
 							{label}
 						</div>
 					)}
-					<div className="_Form__Wrapper">
+					<label className="_Form__Wrapper">
 						{_view ? (
 							<div className="_Form__View">
 								{!children
@@ -86,7 +86,7 @@ const Field = React.forwardRef(({
 								{legend}
 							</div>
 						)}
-					</div>
+					</label>
 					{(error || errors[name]) && (
 						<div className="_Form__Error">
 							{error || errors[name]}
