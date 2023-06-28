@@ -20,6 +20,7 @@ interface IFieldProps extends IInputComponentProps {
 	onBlur?: (e: React.SyntheticEvent) => void;
 	onChange?: (value: any) => void;
 	component?: React.ComponentType;
+	legend?: React.ReactNode;
 }
 
 const Field = React.forwardRef(({
@@ -34,6 +35,7 @@ const Field = React.forwardRef(({
 	onBlur,
 	onChange,
 	component,
+	legend,
 	...props
 }: IFieldProps, ref) => (
 	<Context.Consumer>
@@ -52,32 +54,39 @@ const Field = React.forwardRef(({
 							{label}
 						</div>
 					)}
-					{_view ? (
-						<div className="_Form__View">
-							{!children
-								? value
-								: typeof children === 'function'
-									? children(value)
-									: children}
-						</div>
-					) : (
-						<InputComponent
-							className="_Form__Input"
-							{...props}
-							{...(name && (value !== undefined)) && { ...{ name, value } }}
-							onBlur={(e: any) => {
-								onBlur && onBlur(e);
-								validate && validate(value)
-									.then((validationError: any) => Object.keys(validationError || {}).length && handleError({ [name]: validationError }))
-									.catch((validationError: any) => handleError({ [name]: validationError }));
-							}}
-							onChange={(newValue: any) => {
-								onChange && onChange(newValue);
-								name && handleChange(name, newValue);
-							}}
-							ref={ref}
-						/>
-					)}
+					<div className="_Form__Wrapper">
+						{_view ? (
+							<div className="_Form__View">
+								{!children
+									? value
+									: typeof children === 'function'
+										? children(value)
+										: children}
+							</div>
+						) : (
+							<InputComponent
+								className={classNames('_Form__Input', {'_Form__Input--withoutLegend': !legend})}
+								{...props}
+								{...(name && (value !== undefined)) && { ...{ name, value } }}
+								onBlur={(e: any) => {
+									onBlur && onBlur(e);
+									validate && validate(value)
+										.then((validationError: any) => Object.keys(validationError || {}).length && handleError({ [name]: validationError }))
+										.catch((validationError: any) => handleError({ [name]: validationError }));
+								}}
+								onChange={(newValue: any) => {
+									onChange && onChange(newValue);
+									name && handleChange(name, newValue);
+								}}
+								ref={ref}
+							/>
+						)}
+						{!!legend && (
+							<div className="_Form__Legend">
+								{legend}
+							</div>
+						)}
+					</div>
 					{(error || errors[name]) && (
 						<div className="_Form__Error">
 							{error || errors[name]}
