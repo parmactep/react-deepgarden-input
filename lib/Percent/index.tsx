@@ -5,22 +5,23 @@ import { withClassName } from 'react-deepgarden';
 import input from '../input';
 
 interface IPercentInputProps {
-	onChange?:(values: number ) => void;
+	onChange?:(values: number) => void;
 	max?: number;
 	postfix?: string;
 	value?: number;
 }
 
-
 class PercentInput extends React.Component<IPercentInputProps> {
 	static defaultProps = {
 		value: 0,
-	}
+	};
+
 	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = Number(e.target.value);
 		if (isNaN(value)) return;
 		this.props.onChange(value / 100);
 	};
+
 	render() {
 		return (
 			<div className="_PercentInput__Input">

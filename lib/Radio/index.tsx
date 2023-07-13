@@ -13,9 +13,11 @@ class RadioInput extends React.Component <IRadioInputProps> {
 	static defaultProps = {
 		value: false,
 	};
+
 	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		!!this.props.onChange && this.props.onChange(e.target.checked);
 	};
+
 	render() {
 		return (
 			<div className="_RadioInput__Input">

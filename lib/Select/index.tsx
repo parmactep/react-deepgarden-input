@@ -4,13 +4,13 @@ import { withClassName } from 'react-deepgarden';
 
 import input from '../input';
 
-interface Ioptions{
+interface Ioptions {
 	label?: string;
 	value?: string;
 	disabled?: boolean;
 }
 
-interface ISelectProps{
+interface ISelectProps {
 	onChange?: (values: string | undefined) => void;
 	value?: any;
 	options?: Ioptions[] | undefined;
@@ -21,14 +21,19 @@ class Select extends React.Component<ISelectProps> {
 	static defaultProps: ISelectProps = {
 		options: [],
 	};
+
 	handleChange = (e: any) => {
 		this.props.onChange(this.props.options[e.target.value]
 			? this.props.options[e.target.value].value
 			: undefined); // Pick option by key to save value type
 	};
-	renderOption = (option: Ioptions, key: React.Key) => {
-		return <option key={key} value={key}  disabled={option.disabled} >{option.label}</option>
-	};
+
+	renderOption = (option: Ioptions, key: React.Key) => (
+		<option key={key} value={key} disabled={option.disabled}>
+			{option.label}
+		</option>
+	);
+
 	render() {
 		const { options, placeholder, ...props } = this.props;
 		const value = options.findIndex((option) => option.value === this.props.value);

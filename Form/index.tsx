@@ -2,7 +2,7 @@ import React from 'react';
 import { set } from 'lodash';
 import classNames from 'classnames';
 
-import Context, { IFormContext } from './Context';
+import Context from './Context';
 
 export * from './Context';
 
@@ -28,53 +28,33 @@ interface IFormState {
 }
 
 class Form extends React.Component<IFormProps, IFormState> {
+	static defaultProps: Partial<IFormProps>;
+
+	static Field = Field;
+
+	static Group = Group;
+
 	state = {
 		values: this.props.initialValues,
 		errors: this.props.errors,
 	};
-	static defaultProps: Partial<IFormProps>;
-	static Field = Field;
-	static Group = Group;
 
+	handleSubmit = async (e: React.FormEvent) => {
+		e && e.preventDefault();
+		return this.validate()
+			.catch((errors) => { throw errors; })
+			.then(() => this.props.onSubmit(this.state.values));
+	};
 
-	get(name: string) {
-		return this.state.values[name];
-	};
-	change = (change: any) => {
-		this.handleChange(Object.keys(change), Object.values(change));
-	};
-	isValid = () => {
-		for (let key in this.state.errors) {
-			if (!!this.state.errors[key]) {
-				return false;
-			}
-		}
-		return true;
-	};
-	validate = () => new Promise<void>((resolve, reject) => {
-		if (this.props.validationSchema) {
-			console.log('VALIDATE', this.state.values);
-			this.props.validationSchema
-				.validate(this.state.values, {
-					abortEarly: false,
-				})
-				.then(() => resolve());
-		}
+	reset = (values = {}) => new Promise((resolve) => {
 		this.setState({
-			errors: {
-				...this.state.errors,
-				...this.props.validate(this.state.values),
-			},
-		}, () => this.isValid() ? resolve() : reject(this.state.errors));
+			values: { ...this.props.initialValues, ...values },
+			errors: this.props.errors,
+		}, () => resolve(this.state.values));
 	});
-	handleError = (error: any) => {
-		this.setState({
-			errors: {
-				...this.state.errors,
-				...error,
-			},
-		});
-	};
+
+	submit = (e: React.FormEvent) => this.handleSubmit(e);
+
 	handleChange = (names: any, values?: any) => { // @TODO: refactor this to handle object with keys-values instead names and values arrays
 		let newValues: any;
 		if (this.isArray(names) && this.isArray(values)) {
@@ -100,26 +80,54 @@ class Form extends React.Component<IFormProps, IFormState> {
 			errors: {},
 		});
 	};
-	submit = (e: React.FormEvent) => {
-		return this.handleSubmit(e);
-	};
-	reset = (values = {}) => {
-		return new Promise((resolve) => {
-			this.setState({
-				values: {...this.props.initialValues, ...values},
-				errors: this.props.errors,
-			}, () => resolve(this.state.values));
+
+	handleError = (error: any) => {
+		this.setState({
+			errors: {
+				...this.state.errors,
+				...error,
+			},
 		});
 	};
-	handleSubmit = (e: React.FormEvent) => {
-		e && e.preventDefault();
-		return this.validate()
-			.catch((errors) => { throw errors; })
-			.then(() => this.props.onSubmit(this.state.values));
+
+	validate = () => new Promise<void>((resolve, reject) => {
+		if (this.props.validationSchema) {
+			console.log('VALIDATE', this.state.values);
+			this.props.validationSchema
+				.validate(this.state.values, {
+					abortEarly: false,
+				})
+				.then(() => resolve());
+		}
+		this.setState({
+			errors: {
+				...this.state.errors,
+				...this.props.validate(this.state.values),
+			},
+		}, () => (this.isValid() ? resolve() : reject(this.state.errors)));
+	});
+
+	isValid = () => {
+		for (const key in this.state.errors) {
+			if (!!this.state.errors[key]) {
+				return false;
+			}
+		}
+		return true;
 	};
+
+	change = (change: any) => {
+		this.handleChange(Object.keys(change), Object.values(change));
+	};
+
+	get(name: string) {
+		return this.state.values[name];
+	}
+
 	isArray(value: any) {
 		return value && typeof value === 'object' && value.constructor === Array;
 	}
+
 	render() {
 		const Component = this.props.inner ? 'div' : 'form';
 		return (

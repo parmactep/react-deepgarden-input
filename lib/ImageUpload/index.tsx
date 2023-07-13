@@ -10,17 +10,19 @@ interface IImageUploadProps {
 	placeholder?: string;
 	placeholderText?: string;
 	value?: string;
-	className?: string;
 }
 
 class ImageUpload extends React.Component<IImageUploadProps> {
 	_input: HTMLInputElement;
+
 	static defaultProps = {
 		value: '',
 	};
+
 	state = {
 		pending: false,
 	};
+
 	handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => { // @TODO: Handle errors
 		const file = e.target.files[0];
 		if (!!this.props.onUpload) { // @TODO: implement default upload function
@@ -28,9 +30,11 @@ class ImageUpload extends React.Component<IImageUploadProps> {
 			return this.props.onChange(value);
 		}
 	};
+
 	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		this.props.onChange(e.target.value);
 	};
+
 	render() {
 		return (
 			<div className="_ImageUploadInput__Image">

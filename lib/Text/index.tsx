@@ -15,9 +15,11 @@ class TextInput extends React.Component<ITextInputProps> {
 		value: '',
 		autoCapitalize: 'none',
 	};
+
 	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		this.props.onChange(e.target.value);
 	};
+
 	render() {
 		const { postfix, ...props } = this.props;
 		return (

@@ -7,17 +7,19 @@ import input from '../input';
 
 interface ICheckboxInputProps {
 	onChange: (e: boolean) => void;
-	disabled: boolean;
-	value: boolean;
+	disabled?: boolean;
+	value?: boolean;
 }
 
 class CheckboxInput extends React.Component<ICheckboxInputProps> {
 	static defaultProps = {
 		value: false,
 	};
+
 	handleChange = (e: any) => {
 		this.props.onChange(e.target.checked);
 	};
+
 	render() {
 		const value = !!+this.props.value;
 		return (

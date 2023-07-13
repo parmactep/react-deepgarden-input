@@ -6,7 +6,12 @@ interface IGroup extends React.HTMLAttributes<HTMLDivElement> {
 	children?: React.ReactNode;
 }
 
-export default function ({ title, controls, children, ...props }: IGroup) {
+export default function ({
+	title,
+	controls,
+	children,
+	...props
+}: IGroup) {
 	return (
 		<div className="_Form__Group" {...props}>
 			{(title || controls)
