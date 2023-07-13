@@ -6,7 +6,7 @@ import { Button, withClassName } from 'react-deepgarden';
 import input from '../input';
 
 interface IFileProps {
-	onChange?:(file: globalThis.File ) => void;
+	onChange?:(file: globalThis.File) => void;
 	dropZone?: any;
 	withSampleFile?: any;
 	value?: any;
@@ -14,44 +14,54 @@ interface IFileProps {
 
 class File extends React.Component<IFileProps> {
 	private _input: any;
+
 	static defaultProps = {
 		value: '',
 	};
+
 	state = {
 		isHighlight: false,
 	};
+
 	componentDidMount() {
 		window.addEventListener('dragover', this._preventDefault, false);
 		window.addEventListener('drop', this._preventDefault, false);
 	}
+
 	componentWillUnmount() {
 		window.removeEventListener('dragover', this._preventDefault, false);
 		window.addEventListener('drop', this._preventDefault, false);
 	}
+
 	_preventDefault = (e: any) => e.preventDefault();
 
 	handleOpenInput = () => {
 		this._input.click();
 	};
+
 	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files[0];
 		this.props.onChange(file);
 	};
+
 	handleDragEnter = () => {
 		this.setState({
 			isHighlight: true,
 		});
 	};
+
 	handleDragLeave = () => {
 		this.setState({
 			isHighlight: false,
 		});
 	};
+
 	handleDrop = (e: React.DragEvent<HTMLInputElement>) => {
 		e.preventDefault();
 		const file = e.dataTransfer.files[0];
 		this.props.onChange(file);
 	};
+
 	render() {
 		return (
 			<>

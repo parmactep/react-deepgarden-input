@@ -6,7 +6,7 @@ import Context from './Context';
 
 import Input from '../index';
 
-import { IInputComponentProps } from '../lib/input'
+import { IInputComponentProps } from '../lib/input';
 
 interface IFieldProps extends IInputComponentProps {
 	label?: string;
@@ -65,7 +65,7 @@ const Field = React.forwardRef(({
 							</div>
 						) : (
 							<InputComponent
-								className={classNames('_Form__Input', {'_Form__Input--withoutLegend': !legend})}
+								className={classNames('_Form__Input', { '_Form__Input--withoutLegend': !legend })}
 								{...props}
 								{...(name && (value !== undefined)) && { ...{ name, value } }}
 								onBlur={(e: any) => {

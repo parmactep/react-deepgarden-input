@@ -15,7 +15,7 @@ import Date from './Date';
 import Percent from './Percent';
 import Toggle from './Toggle';
 
-interface Itypes{
+interface Itypes {
 	[x: string]: any;
 }
 
@@ -44,4 +44,4 @@ const input = React.forwardRef((props: Iinput, ref: any) => {
 	return Component && <Component {...props} ref={ref} />;
 });
 
-export default input
+export default input;

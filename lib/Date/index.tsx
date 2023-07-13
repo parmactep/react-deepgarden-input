@@ -2,7 +2,7 @@ import React from 'react';
 import Calendar from 'react-calendar/dist/entry.nostyle';
 import moment from 'moment';
 
-import { withClassName, DropDown, OutsideClick } from 'react-deepgarden';
+import { withClassName, OutsideClick } from 'react-deepgarden';
 
 import Text from '../Text';
 
@@ -29,21 +29,24 @@ class DateInput extends React.Component<IDateInputProps> {
 			dateStyle: 'short',
 		},
 	};
+
 	state = {
 		isShowCalendar: false,
 	};
+
 	handleCalendarChange = (date: Date) => {
 		!date.getHours() && date.setHours(Math.abs(date.getTimezoneOffset() / 60));
 		this.props.onChange(date.toLocaleDateString(this.props.locale, this.props.options));
 		this.toggleCalendar();
 	};
+
 	toggleCalendar = () => {
 		this.setState({
 			isShowCalendar: !this.state.isShowCalendar,
 		});
-	}
-	render() {
+	};
 
+	render() {
 		const date = this.props.value
 			? moment(this.props.value).toDate()
 			: moment().startOf('day').toDate();
@@ -54,12 +57,10 @@ class DateInput extends React.Component<IDateInputProps> {
 						? this.props.momentFormat
 							? moment(date).format(this.props.momentFormat)
 							: date.toLocaleDateString()
-						: ''
-					}
+						: ''}
 					onClick={this.toggleCalendar}
 					disabled={this.props.disabled}
-					_type={undefined}
-					_size={undefined}				/>
+				/>
 				{this.state.isShowCalendar
 				&& (
 					<OutsideClick

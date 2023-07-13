@@ -12,10 +12,12 @@ interface ITextareaInputProps {
 class TextareaInput extends React.Component<ITextareaInputProps> {
 	static defaultProps = {
 		value: '',
-	}
+	};
+
 	handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		this.props.onChange(e.target.value);
-	}
+	};
+
 	render() {
 		return <textarea {...this.props} onChange={this.handleChange} value={this.props.value} />;
 	}

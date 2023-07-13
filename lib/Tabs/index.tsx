@@ -20,9 +20,11 @@ class TabsInput extends React.Component<ITabsInputProps> {
 	static defaultProps = {
 		value: false,
 	};
+
 	handleChange = (value: boolean) => {
 		this.props.onChange(value);
 	};
+
 	renderOption = (option: Ioptions, key: React.Key) => (
 		<div
 			key={key}
@@ -32,6 +34,7 @@ class TabsInput extends React.Component<ITabsInputProps> {
 			{option.label}
 		</div>
 	);
+
 	render() {
 		return (
 			<div className="_TabsInput__Input">
