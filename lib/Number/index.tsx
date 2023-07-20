@@ -20,7 +20,7 @@ class NumberInput extends React.Component<INumberInputProps> {
 		this.props.max ? +e.target.value <= this.props.max && this.props.onChange(+e.target.value) : this.props.onChange(+e.target.value);
 	};
 
-	static handleInput = (e: any) => {
+	handleInput = (e: any) => {
 		e.target.value = +e.target.value;
 	};
 

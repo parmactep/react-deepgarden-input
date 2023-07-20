@@ -17,6 +17,12 @@ interface ISelectProps {
 	placeholder?: string
 }
 
+const renderOption = (option: Ioptions, key: React.Key) => (
+	<option key={key} value={key} disabled={option.disabled}>
+		{option.label}
+	</option>
+);
+
 class Select extends React.Component<ISelectProps> {
 	static defaultProps: ISelectProps = {
 		options: [],
@@ -27,12 +33,6 @@ class Select extends React.Component<ISelectProps> {
 			? this.props.options[e.target.value].value
 			: undefined); // Pick option by key to save value type
 	};
-
-	static renderOption = (option: Ioptions, key: React.Key) => (
-		<option key={key} value={key} disabled={option.disabled}>
-			{option.label}
-		</option>
-	);
 
 	render() {
 		const { options, placeholder, ...props } = this.props;
@@ -45,7 +45,7 @@ class Select extends React.Component<ISelectProps> {
 				onChange={this.handleChange}
 			>
 				{placeholder && <option value={null}>{placeholder}</option>}
-				{options.map(this.renderOption)}
+				{options.map(renderOption)}
 			</select>
 		);
 	}

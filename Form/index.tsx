@@ -38,7 +38,7 @@ interface IForm extends ForwardRefExoticComponent<IFormProps & RefAttributes<HTM
 	Group: typeof Group;
 }
 
-const calculateNewValues = (values, changes: any, changedValues?: any) => { // @TODO: refactor this to handle object with keys-values instead names and values arrays
+const calculateNewValues = (values: IValues, changes: any, changedValues?: any) => { // @TODO: refactor this to handle object with keys-values instead names and values arrays
 	let newValues: any;
 	if (isArray(changes) && isArray(changedValues)) {
 		newValues = values;

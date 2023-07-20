@@ -12,7 +12,7 @@ interface IFileProps {
 }
 
 class File extends React.Component<IFileProps> {
-	static _preventDefault = (e: any) => e.preventDefault();
+	_preventDefault = (e: any) => e.preventDefault();
 
 	private _input: any;
 
