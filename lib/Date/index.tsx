@@ -1,4 +1,4 @@
-import React, { useState, SyntheticEvent } from 'react';
+import React, { useState } from 'react';
 import Calendar from 'react-calendar/dist/entry.nostyle';
 import moment from 'moment';
 
@@ -36,16 +36,16 @@ function DateInput({
 }: IDateInputProps) {
 	const [isShowCalendar, setIsShowCalendar] = useState(false);
 
-	const handleCalendarChange = (date: Date) => {
-		!date.getHours() && date.setHours(Math.abs(date.getTimezoneOffset() / 60));
-		onChange(date.toLocaleDateString(locale, options));
-		toggleCalendar();
-	};
-
 	const toggleCalendar = (e?: Event) => {
 		e?.preventDefault();
 		e?.stopPropagation();
 		setIsShowCalendar(!isShowCalendar);
+	};
+
+	const handleCalendarChange = (date: Date) => {
+		!date.getHours() && date.setHours(Math.abs(date.getTimezoneOffset() / 60));
+		onChange(date.toLocaleDateString(locale, options));
+		toggleCalendar();
 	};
 
 	const date = value

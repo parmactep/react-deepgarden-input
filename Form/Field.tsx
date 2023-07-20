@@ -4,7 +4,7 @@ import { get } from 'lodash';
 
 import Context from './Context';
 
-import Input from '../index';
+import Input from '../lib';
 
 import { IInputComponentProps } from '../lib/input';
 

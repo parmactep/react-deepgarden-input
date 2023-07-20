@@ -18,7 +18,7 @@ class PercentInput extends React.Component<IPercentInputProps> {
 
 	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = Number(e.target.value);
-		if (isNaN(value)) return;
+		if (Number.isNaN(value)) return;
 		this.props.onChange(value / 100);
 	};
 

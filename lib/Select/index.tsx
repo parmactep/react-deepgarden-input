@@ -28,7 +28,7 @@ class Select extends React.Component<ISelectProps> {
 			: undefined); // Pick option by key to save value type
 	};
 
-	renderOption = (option: Ioptions, key: React.Key) => (
+	static renderOption = (option: Ioptions, key: React.Key) => (
 		<option key={key} value={key} disabled={option.disabled}>
 			{option.label}
 		</option>

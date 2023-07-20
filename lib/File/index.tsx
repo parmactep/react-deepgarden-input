@@ -9,15 +9,12 @@ interface IFileProps {
 	onChange?:(file: globalThis.File) => void;
 	dropZone?: any;
 	withSampleFile?: any;
-	value?: any;
 }
 
 class File extends React.Component<IFileProps> {
-	private _input: any;
+	static _preventDefault = (e: any) => e.preventDefault();
 
-	static defaultProps = {
-		value: '',
-	};
+	private _input: any;
 
 	state = {
 		isHighlight: false,
@@ -32,8 +29,6 @@ class File extends React.Component<IFileProps> {
 		window.removeEventListener('dragover', this._preventDefault, false);
 		window.addEventListener('drop', this._preventDefault, false);
 	}
-
-	_preventDefault = (e: any) => e.preventDefault();
 
 	handleOpenInput = () => {
 		this._input.click();
@@ -77,7 +72,7 @@ class File extends React.Component<IFileProps> {
 					<Button onClick={this.handleOpenInput} _type={undefined} _size={undefined}>Choose Files to Upload</Button>
 					{this.props.withSampleFile}
 				</div>
-				<input type="file" ref={(node) => this._input = node} onChange={this.handleChange} className="_FileInput__Input" />
+				<input type="file" ref={this._input} onChange={this.handleChange} className="_FileInput__Input" />
 			</>
 		);
 	}

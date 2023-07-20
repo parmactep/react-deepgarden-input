@@ -1,10 +1,18 @@
-import React, { useState, forwardRef, useImperativeHandle, ForwardRefExoticComponent, RefAttributes, PropsWithoutRef } from 'react';
+import React, {
+	useState,
+	useMemo,
+	forwardRef,
+	useImperativeHandle,
+	ForwardRefExoticComponent,
+	RefAttributes,
+} from 'react';
 import { set } from 'lodash';
 import classNames from 'classnames';
 
 import Context from './Context';
-export { default as Field } from './Field';
 import Field from './Field';
+import Group from './Group';
+
 export * from './Context';
 
 function isArray(value: any) {
@@ -25,11 +33,38 @@ export interface IFormProps {
 	onSubmit?: ((values: IValues) => void) | ((values: IValues, domain?: string) => Promise<void>)
 }
 
-interface IFormI extends ForwardRefExoticComponent<any> {
-	Field?: any;
+interface IForm extends ForwardRefExoticComponent<IFormProps & RefAttributes<HTMLDivElement>> {
+	Field: typeof Field;
+	Group: typeof Group;
 }
 
-const Form: IFormI = forwardRef(({
+const calculateNewValues = (values, changes: any, changedValues?: any) => { // @TODO: refactor this to handle object with keys-values instead names and values arrays
+	let newValues: any;
+	if (isArray(changes) && isArray(changedValues)) {
+		newValues = values;
+		changes.forEach((name: any, index: number) => {
+			newValues = set({ ...newValues }, name, changedValues[index]); // @TODO: Do we need to copy newValues object
+		});
+	} else if (typeof changes === 'object') {
+		newValues = {
+			...values,
+			...changes,
+		};
+	}
+	const updatedValues = set(
+		Array.isArray(values)
+			? [...values]
+			: { ...values },
+		changes,
+		changedValues,
+	);
+
+	return newValues ||	isArray(updatedValues)
+		? updatedValues.filter((updatedValue: any) => updatedValue !== null)
+		: updatedValues;
+};
+
+const Form = forwardRef(({
 	className,
 	initialValues,
 	errors,
@@ -72,31 +107,9 @@ const Form: IFormI = forwardRef(({
 	};
 
 	const handleChange = (changes: any, changedValues?: any) => { // @TODO: refactor this to handle object with keys-values instead names and values arrays
-		let newValues: any;
-		if (isArray(changes) && isArray(changedValues)) {
-			newValues = values;
-			changes.forEach((name: any, index: number) => {
-				newValues = set({ ...newValues }, name, changedValues[index]); // @TODO: Do we need to copy newValues object
-			});
-		} else if (typeof changes === 'object') {
-			newValues = {
-				...values,
-				...changes,
-			};
-		}
-		const updatedValues = set(
-			Array.isArray(values)
-				? [...values]
-				: { ...values },
-			changes,
-			changedValues,
-		);
+		const newValues = calculateNewValues(values, changes, changedValues);
 
-		setValues(newValues || (
-			isArray(updatedValues)
-				? updatedValues.filter((updatedValue: any) => updatedValue !== null)
-				: updatedValues
-		));
+		setValues(newValues);
 		setErrorsState({});
 	};
 
@@ -127,23 +140,24 @@ const Form: IFormI = forwardRef(({
 		},
 		validate() {
 			return validateForm();
-		}
+		},
 	}));
 
 	const Component = inner ? 'div' : 'form';
+
+	const contextValue = useMemo(() => ({
+		values,
+		errors: errorsState,
+		handleChange,
+		handleError,
+	}), [values, errors]);
 
 	return (
 		<Component
 			className={classNames('_Form', className)}
 			onSubmit={handleSubmit}
 		>
-			<Context.Provider value={{
-				values,
-				errors: errorsState,
-				handleChange,
-				handleError,
-			}}
-			>
+			<Context.Provider value={contextValue}>
 				{typeof children === 'function'
 					? (
 						<Context.Consumer>{children}</Context.Consumer>
@@ -154,8 +168,11 @@ const Form: IFormI = forwardRef(({
 	);
 });
 
-// Form.Field = Field;
+const Compounded = Form as IForm;
 
-export default Form;
+Compounded.Field = Field;
+Compounded.Group = Group;
+
+export default Compounded;
 
 import './index.styl';

@@ -17,10 +17,6 @@ export default class ImageInput extends React.Component<IImageInputProps> {
 		value: '',
 	};
 
-	handleImageSelect = (e:React.ChangeEvent<HTMLInputElement>) => {
-		this.props.onChange && this.props.onChange(e.target.files[0]);
-	};
-
 	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		this.props.onChange && this.props.onChange(e.target.value);
 	};

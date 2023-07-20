@@ -13,7 +13,6 @@ interface ITextInputProps {
 class TextInput extends React.Component<ITextInputProps> {
 	static defaultProps = {
 		value: '',
-		autoCapitalize: 'none',
 	};
 
 	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
