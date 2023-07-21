@@ -69,9 +69,9 @@ const calculateNewValues = (values: IValues, changes: any, changedValues?: any) 
 		changedValues,
 	);
 
-	return newValues ||	isArray(updatedValues)
+	return newValues ||	(isArray(updatedValues)
 		? updatedValues.filter((updatedValue: any) => updatedValue !== null)
-		: updatedValues;
+		: updatedValues);
 };
 
 const Form = forwardRef(({
