@@ -19,7 +19,9 @@ function isArray(value: any) {
 	return value && typeof value === 'object' && value.constructor === Array;
 }
 
-type IValues = Record<string | number, any>;
+type IValue = any;
+
+type IValues = Record<string | number, IValue>;
 type IErrors = Record<string, string>;
 
 export interface IFormProps {
@@ -31,6 +33,14 @@ export interface IFormProps {
 	inner?: string;
 	children?: any;
 	onSubmit?: ((values: IValues) => void) | ((values: IValues, domain?: string) => Promise<void>)
+}
+
+export interface IFormHandle {
+	get: (name: string) => IValue;
+	change: (changes: any) => void;
+	reset: (newValues?: IValues) => void;
+	submit: (e: React.FormEvent) => void;
+	validate: () => IErrors;
 }
 
 interface IForm extends ForwardRefExoticComponent<IFormProps & RefAttributes<HTMLDivElement>> {
@@ -66,13 +76,13 @@ const calculateNewValues = (values: IValues, changes: any, changedValues?: any) 
 
 const Form = forwardRef(({
 	className,
-	initialValues,
-	errors,
+	initialValues = {},
+	errors = {},
 	validationSchema,
-	validate,
+	validate = () => {},
 	inner,
 	children,
-	onSubmit,
+	onSubmit = () => {},
 }: IFormProps, ref) => {
 	const [values, setValues] = useState(initialValues);
 	const [errorsState, setErrorsState] = useState(errors);

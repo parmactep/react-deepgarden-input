@@ -131,6 +131,7 @@ class Form extends React.Component<IFormProps, IFormState> {
 				className={classNames('_Form', this.props.className)}
 				onSubmit={this.handleSubmit}
 			>
+				{/* eslint-disable-next-line */}
 				<Context.Provider value={{
 					values: this.state.values,
 					errors: this.state.errors,

@@ -5,44 +5,42 @@ import { withClassName } from 'react-deepgarden';
 import input from '../input';
 
 interface INumberInputProps {
-	onChange?:(values: number) => void;
+	onChange?:(value: number) => void;
 	max?: number;
 	postfix?: string;
 	value?: any;
 }
 
-class NumberInput extends React.Component<INumberInputProps> {
-	static defaultProps = {
-		value: '',
-	};
-
-	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		this.props.max ? +e.target.value <= this.props.max && this.props.onChange(+e.target.value) : this.props.onChange(+e.target.value);
-	};
-
-	handleInput = (e: any) => {
-		e.target.value = +e.target.value;
-	};
-
-	render() {
-		return (
-			<div className="_TextInput__Wrapper">
-				<input
-					{...this.props}
-					min="0"
-					onInput={this.handleInput}
-					onChange={this.handleChange}
-					value={this.props.value}
-				/>
-				{this.props.postfix
-				&& (
-					<div className="_TextInput__Postfix">
-						{this.props.postfix}
-					</div>
-				)}
-			</div>
+function NumberInput({
+	onChange = (_) => {},
+	max,
+	postfix,
+	value = '',
+	...props
+}: INumberInputProps) {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		onChange(
+			(max && +e.target.value >= max)
+				? max
+				: +e.target.value,
 		);
-	}
+	};
+
+	return (
+		<div className="_TextInput__Wrapper">
+			<input
+				{...props}
+				min="0"
+				onChange={handleChange}
+				value={value}
+			/>
+			{postfix && (
+				<div className="_TextInput__Postfix">
+					{postfix}
+				</div>
+			)}
+		</div>
+	);
 }
 
 import './index.styl';
