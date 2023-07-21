@@ -15,7 +15,7 @@ function CheckboxInput({
 	onChange,
 	disabled,
 	value = false,
-}) {
+}: ICheckboxInputProps) {
 	const handleChange = (e: any) => {
 		onChange(e.target.checked);
 	};
