@@ -39,7 +39,7 @@ export interface IFormHandle {
 	get: (name: string) => IValue;
 	change: (changes: any) => void;
 	reset: (newValues?: IValues) => void;
-	submit: (e: React.FormEvent) => void;
+	submit: (e?: React.FormEvent) => void;
 	validate: () => IErrors;
 }
 
