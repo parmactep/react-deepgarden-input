@@ -4,12 +4,12 @@ import React, {
 	forwardRef,
 	useImperativeHandle,
 	ForwardRefExoticComponent,
-	RefAttributes,
+	RefAttributes, ReactNode,
 } from 'react';
 import { set } from 'lodash';
 import classNames from 'classnames';
 
-import Context from './Context';
+import Context, { IFormContext } from './Context';
 import Field from './Field';
 import Group from './Group';
 
@@ -31,7 +31,7 @@ export interface IFormProps {
 	validationSchema?: any;
 	validate?: any;
 	inner?: string;
-	children?: any;
+	children?: ((context: IFormContext) => ReactNode) | ReactNode;
 	onSubmit?: ((values: IValues) => void) | ((values: IValues, domain?: string) => Promise<void>)
 }
 
