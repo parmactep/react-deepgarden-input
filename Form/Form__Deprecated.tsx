@@ -97,7 +97,6 @@ class Form extends React.Component<IFormProps, IFormState> {
 
 	validate = () => new Promise<void>((resolve, reject) => {
 		if (this.props.validationSchema) {
-			console.log('VALIDATE', this.state.values);
 			this.props.validationSchema
 				.validate(this.state.values, {
 					abortEarly: false,

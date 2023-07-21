@@ -8,7 +8,7 @@ export interface IInputComponentProps {
 	onFocus?: (e: React.FocusEvent) => void;
 }
 
-export default function input(inputClassName: string, Tag: any = 'label') {
+export default function input(inputClassName: string, Tag: any = 'div') {
 	return (Component: any) => React.forwardRef(({
 		className,
 		onBlur,

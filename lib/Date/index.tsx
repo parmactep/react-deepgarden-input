@@ -36,9 +36,7 @@ function DateInput({
 }: IDateInputProps) {
 	const [isShowCalendar, setIsShowCalendar] = useState(false);
 
-	const toggleCalendar = (e?: Event) => {
-		e?.preventDefault();
-		e?.stopPropagation();
+	const toggleCalendar = () => {
 		setIsShowCalendar(!isShowCalendar);
 	};
 
