@@ -43,7 +43,7 @@ export interface IFormHandle {
 	validate: () => IErrors;
 }
 
-interface IForm extends ForwardRefExoticComponent<IFormProps & RefAttributes<HTMLDivElement>> {
+interface IForm extends ForwardRefExoticComponent<IFormProps & RefAttributes<IFormHandle>> {
 	Field: typeof Field;
 	Group: typeof Group;
 }
