@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import classNames from 'classnames';
 
 import { withClassName } from 'react-deepgarden';
@@ -16,7 +16,7 @@ function CheckboxInput({
 	disabled = false,
 	value = false,
 }: ICheckboxInputProps) {
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		onChange && onChange(e.target.checked);
 	};
 	const formattedValue = !!+value;
