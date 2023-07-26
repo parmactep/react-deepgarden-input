@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, ChangeEvent } from 'react';
 
 import { withClassName } from 'react-deepgarden';
 
@@ -21,7 +21,7 @@ function ImageUpload({
 }: IImageUploadProps) {
 	const _input = useRef();
 
-	const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => { // @TODO: Handle errors
+	const handleImageSelect = async (e: ChangeEvent<HTMLInputElement>) => { // @TODO: Handle errors
 		const file = e.target.files[0];
 		if (!!onUpload) { // @TODO: implement default upload function
 			const newValue = await onUpload(file);
@@ -61,4 +61,4 @@ function ImageUpload({
 
 import './index.styl';
 
-export default withClassName('_Input')(input('_ImageUploadInput')(ImageUpload));
+export default withClassName('_Input')(input('_ImageUploadInput', 'label')(ImageUpload));

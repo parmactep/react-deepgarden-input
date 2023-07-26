@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, SyntheticEvent, FocusEvent } from 'react';
 import classNames from 'classnames';
 
 export interface IInputComponentProps {
 	[x: string]: any;
 	className?: string;
-	onBlur?: (e: React.SyntheticEvent) => void;
-	onFocus?: (e: React.FocusEvent) => void;
+	onBlur?: (e: SyntheticEvent) => void;
+	onFocus?: (e: FocusEvent) => void;
 }
 
-export default function input(inputClassName: string, Tag: any = 'div') {
+export default function input(inputClassName: string, Tag: React.ElementType = 'div') {
 	return (Component: any) => React.forwardRef(({
 		className,
 		onBlur,
@@ -26,11 +26,11 @@ export default function input(inputClassName: string, Tag: any = 'div') {
 				<Component
 					{...props}
 					ref={ref}
-					onFocus={(e: any) => {
+					onFocus={(e: FocusEvent<HTMLElement>) => {
 						setFocused(true);
 						onFocus && onFocus(e);
 					}}
-					onBlur={(e: any) => {
+					onBlur={(e: SyntheticEvent<HTMLElement>) => {
 						setFocused(false);
 						onBlur && onBlur(e);
 					}}

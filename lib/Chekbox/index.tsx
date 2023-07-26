@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import classNames from 'classnames';
 
 import { withClassName } from 'react-deepgarden';
@@ -13,11 +13,11 @@ interface ICheckboxInputProps {
 
 function CheckboxInput({
 	onChange,
-	disabled,
+	disabled = false,
 	value = false,
 }: ICheckboxInputProps) {
-	const handleChange = (e: any) => {
-		onChange(e.target.checked);
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		onChange && onChange(e.target.checked);
 	};
 	const formattedValue = !!+value;
 	return (
@@ -34,4 +34,4 @@ function CheckboxInput({
 
 import './index.styl';
 
-export default withClassName('_Input')(input('_CheckboxInput')(CheckboxInput));
+export default withClassName('_Input')(input('_CheckboxInput', 'label')(CheckboxInput));
