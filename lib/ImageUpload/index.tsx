@@ -61,4 +61,4 @@ function ImageUpload({
 
 import './index.styl';
 
-export default withClassName('_Input')(input('_ImageUploadInput')(ImageUpload));
+export default withClassName('_Input')(input('_ImageUploadInput', 'label')(ImageUpload));
