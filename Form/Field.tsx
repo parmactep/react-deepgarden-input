@@ -49,7 +49,7 @@ const Field = React.forwardRef(({
 		}) => {
 			const value = get(values, name);
 			const InputComponent = component || Input;
-			const Tag = isLabel ? 'label' : 'div';
+			const Tag = (isLabel && props.type !== 'date') ? 'label' : 'div';
 			return (
 				<div className={classNames('_Form__Field', { '_Form__Field--Inline': _inline }, className)}>
 					{label && (
