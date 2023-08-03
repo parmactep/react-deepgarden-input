@@ -21,6 +21,7 @@ interface IFieldProps extends IInputComponentProps {
 	onChange?: (value: any) => void;
 	component?: React.ComponentType;
 	legend?: React.ReactNode;
+	isLabel?: boolean;
 }
 
 const Field = React.forwardRef(({
@@ -35,6 +36,7 @@ const Field = React.forwardRef(({
 	onBlur,
 	onChange,
 	component,
+	isLabel = true,
 	legend,
 	...props
 }: IFieldProps, ref) => (
@@ -47,6 +49,7 @@ const Field = React.forwardRef(({
 		}) => {
 			const value = get(values, name);
 			const InputComponent = component || Input;
+			const Tag = isLabel ? 'label' : 'div';
 			return (
 				<div className={classNames('_Form__Field', { '_Form__Field--Inline': _inline }, className)}>
 					{label && (
@@ -54,7 +57,7 @@ const Field = React.forwardRef(({
 							{label}
 						</div>
 					)}
-					<label className="_Form__Wrapper">
+					<Tag className="_Form__Wrapper">
 						{_view ? (
 							<div className="_Form__View">
 								{!children
@@ -86,7 +89,7 @@ const Field = React.forwardRef(({
 								{legend}
 							</div>
 						)}
-					</label>
+					</Tag>
 					{(error || errors[name]) && (
 						<div className="_Form__Error">
 							{error || errors[name]}
