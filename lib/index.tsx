@@ -15,11 +15,11 @@ import Date from './Date';
 import Percent from './Percent';
 import Toggle from './Toggle';
 
-interface Itypes {
+interface ITypes {
 	[x: string]: any;
 }
 
-const types: Itypes = {
+const types: ITypes = {
 	number: Number,
 	textarea: Textarea,
 	checkbox: Checkbox,
@@ -34,12 +34,12 @@ const types: Itypes = {
 	imageUpload: ImageUpload,
 };
 
-interface Iinput {
+interface IInput {
 	[x: string]: any;
-	type: string;
+	type: string; // @TODO: key of types
 }
 
-const input = React.forwardRef((props: Iinput, ref: any) => {
+const input = React.forwardRef((props: IInput, ref: any) => {
 	const Component = types[props.type] || Text;
 	return Component && <Component {...props} ref={ref} />;
 });
