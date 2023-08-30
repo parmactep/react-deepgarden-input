@@ -6,6 +6,8 @@ import React, {
 } from 'react';
 import { set } from 'lodash';
 
+import { IFormContext } from './Context';
+
 function isArray(value: any) {
 	return value && typeof value === 'object' && value.constructor === Array;
 }
@@ -81,7 +83,7 @@ function useForm(
 		isValid(newErrorsState) ? resolve() : reject(newErrorsState);
 	});
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleSubmit = async (e?: React.FormEvent) => {
 		e && e.preventDefault();
 		return validateForm()
 			.catch((validateErrors: any) => {
@@ -127,7 +129,7 @@ function useForm(
 		},
 	}));
 
-	const contextValue = useMemo(() => ({
+	const contextValue: IFormContext = useMemo(() => ({
 		values,
 		errors: errorsState,
 		handleChange,

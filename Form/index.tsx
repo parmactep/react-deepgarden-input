@@ -8,6 +8,7 @@ import Form, { IFormProps } from './Form';
 import Field from './Field';
 import Group from './Group';
 
+export * from './Form';
 export * from './Context';
 
 export interface IFormHandle {
