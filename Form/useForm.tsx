@@ -4,7 +4,7 @@ import React, {
 	useImperativeHandle,
 	ForwardedRef,
 } from 'react';
-import { set } from 'lodash';
+import { set, isEqual } from 'lodash';
 
 import { IFormContext } from './Context';
 
@@ -127,6 +127,9 @@ function useForm(
 		validate() {
 			return validateForm();
 		},
+		isChanged() {
+			return !isEqual(initialValues, values);
+		}
 	}));
 
 	const contextValue: IFormContext = useMemo(() => ({

@@ -17,6 +17,7 @@ export interface IFormHandle {
 	reset: (newValues?: IValues) => void;
 	submit: (e?: React.FormEvent) => void;
 	validate: () => IErrors;
+	isChanged: () => boolean;
 }
 
 interface IForm extends ForwardRefExoticComponent<IFormProps & RefAttributes<IFormHandle>> {
