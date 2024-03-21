@@ -4,7 +4,7 @@ import React, {
 	useImperativeHandle,
 	ForwardedRef,
 } from 'react';
-import { set } from 'lodash';
+import { set, isEmpty } from 'lodash';
 
 import { IFormContext } from './Context';
 
@@ -96,8 +96,8 @@ function useForm(
 	const handleChange = (changes: any, changedValues?: any) => { // @TODO: refactor this to handle object with keys-values instead names and values arrays
 		const newValues = calculateNewValues(values, changes, changedValues);
 
-		setHasChanges(true);
 		setValues(newValues);
+		setHasChanges(true);
 		setErrorsState({});
 	};
 
@@ -119,6 +119,7 @@ function useForm(
 			return new Promise((resolve) => {
 				const formValues = { ...initialValues, ...newValues };
 				setValues(formValues);
+				setHasChanges(isEmpty(newValues) ? false : true);
 				setErrorsState(errors);
 				resolve(formValues);
 			});
