@@ -4,7 +4,7 @@ import React, {
 	useImperativeHandle,
 	ForwardedRef,
 } from 'react';
-import { set, isEqual } from 'lodash';
+import { set } from 'lodash';
 
 import { IFormContext } from './Context';
 
@@ -61,6 +61,7 @@ function useForm(
 	}: IUseFormProps,
 ) {
 	const [values, setValues] = useState(initialValues);
+	const [hasChanges, setHasChanges] = useState(false);
 	const [errorsState, setErrorsState] = useState(errors);
 
 	const isValid = (errorsToCheck: IErrors = null) => Object
@@ -95,6 +96,7 @@ function useForm(
 	const handleChange = (changes: any, changedValues?: any) => { // @TODO: refactor this to handle object with keys-values instead names and values arrays
 		const newValues = calculateNewValues(values, changes, changedValues);
 
+		setHasChanges(true);
 		setValues(newValues);
 		setErrorsState({});
 	};
@@ -128,7 +130,7 @@ function useForm(
 			return validateForm();
 		},
 		isChanged() {
-			return !isEqual(initialValues, values);
+			return hasChanges;
 		}
 	}));
 
