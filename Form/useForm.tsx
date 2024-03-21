@@ -4,7 +4,7 @@ import React, {
 	useImperativeHandle,
 	ForwardedRef,
 } from 'react';
-import { set, isEmpty } from 'lodash';
+import { set, isEqual } from 'lodash';
 
 import { IFormContext } from './Context';
 
@@ -60,8 +60,7 @@ function useForm(
 		onSubmit = () => {},
 	}: IUseFormProps,
 ) {
-	const [values, setValues] = useState(initialValues);
-	const [hasChanges, setHasChanges] = useState(false);
+	const [values, setValues] = useState(JSON.parse(JSON.stringify(initialValues)));
 	const [errorsState, setErrorsState] = useState(errors);
 
 	const isValid = (errorsToCheck: IErrors = null) => Object
@@ -97,7 +96,6 @@ function useForm(
 		const newValues = calculateNewValues(values, changes, changedValues);
 
 		setValues(newValues);
-		setHasChanges(true);
 		setErrorsState({});
 	};
 
@@ -119,7 +117,6 @@ function useForm(
 			return new Promise((resolve) => {
 				const formValues = { ...initialValues, ...newValues };
 				setValues(formValues);
-				setHasChanges(isEmpty(newValues) ? false : true);
 				setErrorsState(errors);
 				resolve(formValues);
 			});
@@ -131,7 +128,7 @@ function useForm(
 			return validateForm();
 		},
 		isChanged() {
-			return hasChanges;
+			return !isEqual(initialValues, values);
 		}
 	}));
 
