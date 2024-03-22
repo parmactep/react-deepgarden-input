@@ -60,7 +60,7 @@ function useForm(
 		onSubmit = () => {},
 	}: IUseFormProps,
 ) {
-	const [values, setValues] = useState(initialValues);
+	const [values, setValues] = useState(JSON.parse(JSON.stringify(initialValues)));
 	const [errorsState, setErrorsState] = useState(errors);
 
 	const isValid = (errorsToCheck: IErrors = null) => Object
