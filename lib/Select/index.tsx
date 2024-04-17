@@ -17,7 +17,7 @@ interface ISelectProps {
 	placeholder?: string
 }
 
-const renderOption = (option: Ioptions, key: React.Key) => (
+const renderOption = (option: Ioptions, key: number) => (
 	<option key={key} value={key} disabled={option.disabled}>
 		{option.label}
 	</option>
