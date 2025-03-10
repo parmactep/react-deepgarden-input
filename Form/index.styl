@@ -31,5 +31,39 @@
 		display: flex
 		align-items: center
 
+	&__FloatingLabel 
+		position: absolute
+		z-index: 1
+		left: 12px
+		top: 22px
+		transform: translateY(-50%)
+		font-size: 16px
+		line-height: 16px
+		color: $palette.strict.color
+		transition: 0.3s
+		pointer-events: none
+
+	&__FloatingWrapper
+		position: relative
+		width: 100%
+
+		&--Active
+			._Form__FloatingLabel
+				top: 0px
+				padding: 0 2.5px
+				background: #fff
+				left: 10px
+				font-size: 12px
+				line-height: 12px
+		
+		&--Focused
+			._Form__FloatingLabel
+				color: $palette.success.color
+
+			.__Input--isFocused
+				border: 1px solid $palette.success.color !important
+				border-radius: $borderRadius
+
+
 	&__Legend
 		margin-left: 15px

@@ -1,4 +1,4 @@
-import React, { useId, forwardRef, ForwardedRef } from 'react';
+import React, { useId, forwardRef, ForwardedRef, useState } from 'react';
 import classNames from 'classnames';
 import { get } from 'lodash';
 
@@ -10,6 +10,8 @@ import { IInputComponentProps } from '../lib/input';
 
 interface IFieldProps extends IInputComponentProps {
 	label?: string;
+	floatingLabel?: boolean;
+	fixedLabel?: boolean;
 	name?: string;
 	_inline?: boolean;
 	_view?: boolean;
@@ -25,6 +27,8 @@ interface IFieldProps extends IInputComponentProps {
 
 function Field({
 	label,
+	floatingLabel = false,
+	fixedLabel = false,
 	name,
 	_inline,
 	_view,
@@ -38,6 +42,7 @@ function Field({
 	legend,
 	...props
 }: IFieldProps, ref: ForwardedRef<unknown>) {
+	const [isFocused, setIsFocused] = useState(false);
 	const id = useId();
 	const htmlFor = `_Form__Field_${id}`;
 
@@ -51,10 +56,26 @@ function Field({
 			}) => {
 				const value = get(values, name);
 				const InputComponent = component || Input;
+
 				return (
-					<div className={classNames('_Form__Field', { '_Form__Field--Inline': _inline }, className)}>
+					<div
+						className={classNames(
+							'_Form__Field',
+							{ '_Form__Field--Inline': _inline },
+							{ '_Form__FloatingWrapper': floatingLabel || fixedLabel },
+							{ '_Form__FloatingWrapper--Active': (floatingLabel && (isFocused || !!value)) || fixedLabel },
+							{ '_Form__FloatingWrapper--Focused': isFocused },
+							className,
+						)}
+					>
 						{label && (
-							<label htmlFor={htmlFor} className="_Form__Label">
+							<label
+								htmlFor={htmlFor}
+								className={classNames(
+									'_Form__Label',
+									{ '_Form__FloatingLabel': floatingLabel || fixedLabel },
+								)}
+							>
 								{label}
 							</label>
 						)}
@@ -72,7 +93,9 @@ function Field({
 									className={classNames('_Form__Input', { '_Form__Input--withoutLegend': !legend })}
 									{...props}
 									{...(name && (value !== undefined)) && { ...{ name, value } }}
+									onFocus={() => setIsFocused(true)}
 									onBlur={(e: any) => {
+										setIsFocused(false);
 										onBlur && onBlur(e);
 										validate && validate(value)
 											.then((validationError: any) => Object.keys(validationError || {}).length && handleError({ [name]: validationError }))
