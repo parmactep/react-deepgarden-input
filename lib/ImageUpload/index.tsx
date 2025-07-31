@@ -1,4 +1,4 @@
-import React, { useRef, ChangeEvent } from 'react';
+import React, { useRef, ChangeEvent, ReactNode } from 'react';
 
 import { withClassName } from 'react-deepgarden';
 
@@ -9,6 +9,8 @@ interface IImageUploadProps {
 	onUpload?: (file: globalThis.File) => any;
 	placeholder?: string;
 	placeholderText?: string;
+	placeholderOnHover?: ReactNode;
+	changeButtonText?: string;
 	value?: string;
 }
 
@@ -17,9 +19,11 @@ function ImageUpload({
 	onUpload,
 	placeholder,
 	placeholderText,
+	placeholderOnHover,
+	changeButtonText = '',
 	value,
 }: IImageUploadProps) {
-	const _input = useRef();
+	const _input = useRef(null);
 
 	const handleImageSelect = async (e: ChangeEvent<HTMLInputElement>) => { // @TODO: Handle errors
 		const file = e.target.files[0];
@@ -30,32 +34,46 @@ function ImageUpload({
 	};
 
 	return (
-		<div className="_ImageUploadInput__Image">
-			{value
-				? <img src={value} alt={value} />
-				: placeholder
-					? <img src={placeholder} alt="No Image" />
-					: (
-						<div className="_ImageUploadInput__NoImage">
-							No image
-						</div>
-					)}
-			{!!placeholderText && (
+		<>
+			<div className="_ImageUploadInput__Image">
+				{value
+					? <img src={value} alt={value} />
+					: placeholder
+						? <img src={placeholder} alt="No Image" />
+						: (
+							<div className="_ImageUploadInput__NoImage">
+								No image
+							</div>
+						)}
+				{!!placeholderText && (
+					<div
+						className="_ImageUploadInput__PlaceholderText"
+						style={!value ? { display: 'flex' } : {}}
+					>
+						{placeholderText}
+					</div>
+				)}
+				{!!placeholderOnHover && (
+					<div className="_ImageUploadInput__PlaceholderOnHover">
+						{placeholderOnHover}
+					</div>
+				)}
+				<input
+					type="file"
+					ref={_input}
+					accept="image/*"
+					onChange={handleImageSelect}
+					className="_ImageUploadInput__Input"
+				/>
+			</div>
+			{changeButtonText && (
 				<div
-					className="_ImageUploadInput__PlaceholderText"
-					style={!value ? { display: 'flex' } : {}}
+					className="_ImageUploadInput__ChangeButton"
 				>
-					{placeholderText}
+					{changeButtonText}
 				</div>
 			)}
-			<input
-				type="file"
-				ref={_input}
-				accept="image/*"
-				onChange={handleImageSelect}
-				className="_ImageUploadInput__Input"
-			/>
-		</div>
+		</>
 	);
 }
 

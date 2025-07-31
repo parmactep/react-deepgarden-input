@@ -35,3 +35,24 @@
 		background: rgba(0, 0, 0, 0.5)
 		color: #FFF
 		padding: 10px
+
+	&__PlaceholderOnHover
+		position: absolute
+		inset: 0
+		display: flex
+		align-items: center
+		justify-content: center
+		background: rgba(0, 0, 0, 0.5)
+		color: #FFF
+		opacity: 0
+		transition: opacity 0.3s ease
+
+	&:hover &__PlaceholderOnHover
+		opacity: 1
+
+	&__ChangeButton
+		font-weight: 700
+		color: $palette.success.color
+		margin-top: 10px
+		text-align: center
+		cursor: pointer
