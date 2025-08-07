@@ -4,6 +4,8 @@
 		display: none
 
 	&__Field
+		position: relative
+		width: 100%
 		display: block
 
 		&--Inline
@@ -16,6 +18,23 @@
 					display: inline-block
 					vertical-align: middle
 					margin-right: 10px
+
+		&--Active
+			._Form__Label--Floating
+				top: 0px
+				padding: 0 2.5px
+				background: linear-gradient(to bottom, #fff 60%, transparent 60%)
+				left: 10px
+				font-size: 12px
+				line-height: 12px
+		
+		&--Focused
+			._Form__Label--Floating
+				color: $palette.success.color
+
+			.__Input--isFocused
+				border: 1px solid $palette.success.color !important
+				border-radius: $borderRadius
 
 	&__Input
 		flex-shrink: 0
@@ -33,3 +52,16 @@
 
 	&__Legend
 		margin-left: 15px
+
+	&__Label
+		&--Floating
+			position: absolute
+			z-index: 1
+			left: 12px
+			top: 22px
+			transform: translateY(-50%)
+			font-size: 16px
+			line-height: 16px
+			color: $palette.strict.color
+			transition: 0.3s
+			pointer-events: none
