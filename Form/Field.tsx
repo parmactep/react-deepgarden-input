@@ -65,7 +65,10 @@ function Field({
 						)}
 					>
 						{label && (
-							<label htmlFor={htmlFor} className={classNames('_Form__Label', { '_Form__Label--Floating': !_inline })}>
+							<label
+								htmlFor={htmlFor}
+								className={classNames('_Form__Label', { '_Form__Label--Floating': (!_inline && !_view) })}
+							>
 								{label}
 							</label>
 						)}
